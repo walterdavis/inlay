@@ -1,0 +1,19 @@
+body {
+  background-color: #fff;
+  padding: 0;
+  border: 0;
+  color: #333;
+}
+#PageDiv {
+  position: relative;
+  width: 750px;
+  margin: 0 auto;
+  font: 13px/1.4 'Lucida Grande', sans-serif;
+}
+footer {
+  font-size: smaller;
+  border-top: 1px solid #ccc;
+  margin-top: 2em;
+  text-align: center;
+  color: #888;
+}
