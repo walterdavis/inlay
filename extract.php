@@ -18,19 +18,16 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 header('Content-type: text/plain; charset=utf-8');
 $xml = simplexml_load_string($tpl);
 $variables = $xml->xpath('//title|//*[@data-format]');
-foreach($variables as $variable){
+$substitutes = array();
+foreach($variables as $k => $variable){
   $key = trim((string) $variable->{0}, " \t\n\r\0\x0B{}");
   $format = 'string';
   if($variable->attributes() && $variable->attributes()->{'data-format'}){
     $format = (string) $variable->attributes()->{'data-format'}->{0};
     unset($variable->attributes()->{'data-format'});
   }
-  $part = call_user_func($format,$GLOBALS[$key]);
-  if(preg_match('/</', $part)){
-    $part = simplexml_load_string("<root>{$part}</root>");
-  }
-  $variable->{0} = $part;
-  print "{$key} ({$format})\n";
+  $substitutes[$k] = call_user_func($format,$GLOBALS[$key]);
+  $variable[0][0] = '%s';
 }
-print tidy($xml->asXML());
+print tidy(vsprintf($xml->asXML(), $substitutes));
 ?>
