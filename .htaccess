@@ -1,0 +1,6 @@
+Options -Indexes
+Options -MultiViews
+RewriteEngine  on
+# RewriteCond %{REQUEST_FILENAME}   !-d
+# RewriteCond %{REQUEST_FILENAME}   !-f
+RewriteRule    ^(.*)\.html      /routing.php?page=$1 [NS,QSA,L]
