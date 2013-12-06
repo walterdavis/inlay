@@ -6,7 +6,6 @@ document.observe('dom:loaded', function(){
     var elm = this, editor, txt;
     if(elm.down('.editor')) return;
     txt = elm.innerHTML.toString().trim();
-    console.log(txt)
     if(elm.hasClassName('markdown')){
       editor = new Element('textarea', {'class':'editor'});
     }else{
