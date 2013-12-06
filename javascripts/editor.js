@@ -1,8 +1,10 @@
 document.observe('dom:loaded', function(){
+  $('PageDiv').setStyle('padding-top: 40px;');
+  $(document.body).insert('<div class="title-eyebrow"><div class="editable" id="page-title" data-source="title" data-format="string">' + document.title + '</div></div>');
+  $('page-title').setStyle('width:' + $('PageDiv').getStyle('width') + '; margin: auto; font:' + $('PageDiv').getStyle('font'))
   $$('.editable').invoke('observe', 'dblclick', function(evt){
     var elm = this, editor, txt;
     if(elm.down('.editor')) return;
-    elm.setStyle('position:relative');
     txt = elm.innerHTML.toString().trim();
     console.log(txt)
     if(elm.hasClassName('markdown')){
@@ -10,7 +12,7 @@ document.observe('dom:loaded', function(){
     }else{
       editor = new Element('input', {type: 'text', 'class':'editor'});
     }
-    editor.writeAttribute('name', elm.id);
+    editor.writeAttribute('name', elm.readAttribute('data-source'));
     new Ajax.Request('get_raw.php', {
       parameters: { key: elm.readAttribute('data-source') },
       onSuccess: function(xhr){
@@ -25,7 +27,8 @@ document.observe('dom:loaded', function(){
           val: editor.getValue(),
           markdown: (!!elm.hasClassName('markdown'))
         },
-        onSuccess: function(){
+        onSuccess: function(xhr){
+          if(editor.name == 'title') document.title = xhr.responseText;
           editor.remove(); 
         }
       })
