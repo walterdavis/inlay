@@ -1,6 +1,6 @@
 document.observe('dom:loaded', function(){
   $('PageDiv').setStyle('padding-top: 40px;');
-  $(document.body).insert('<div class="title-eyebrow"><div class="editable" id="page-title" data-source="title" data-format="string">' + document.title + '</div></div>');
+  $(document.body).insert('<div class="title-eyebrow"><a id="back-to-show" href="show.php">⇦</a><div class="editable" id="page-title" data-source="title" data-format="string">' + document.title + '</div></div>');
   $('page-title').setStyle('width:' + $('PageDiv').getStyle('width') + '; margin: auto; font:' + $('PageDiv').getStyle('font'))
   $$('.editable').invoke('observe', 'dblclick', function(evt){
     var elm = this, editor, txt;

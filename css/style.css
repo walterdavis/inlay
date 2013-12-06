@@ -18,6 +18,16 @@ body {
 	text-decoration: none;
 }
 
+#back-to-show {
+	padding: 12px 16px 8px;
+	cursor: pointer;
+	text-decoration: none;
+	float: left;
+	font-size: 36px;
+	line-height: 1px;
+	color: #3a3a3a;
+}
+
 #PageDiv {
 	position: relative;
 	width: 750px;
