@@ -4,4 +4,4 @@ RewriteEngine  on
 RewriteBase /fwCMS/
 # RewriteCond %{REQUEST_FILENAME}   !-d
 # RewriteCond %{REQUEST_FILENAME}   !-f
-RewriteRule    ^(.*)\.html      routing.php?page=$1 [NS,QSA,L]
+RewriteRule    ^(.*)\.html(.*)      routing.php?page=$1$2 [NS,QSA,L]
