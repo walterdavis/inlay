@@ -14,7 +14,8 @@ function date_string($string){
   return $string;
 }
 function add_class_name($element, $string){
-  if($element->attributes() && $element->attributes()->{'class'}){
+  $class = '';
+  if($element->attributes() && $element->attributes()->{'class'} && $element->attributes()->{'class'}->{0}){
     $class = (string) $element->attributes()->{'class'}->{0};
     if( ! stristr($class, $string)){
       $element->attributes()->{'class'} = $class . ' ' . $string;
@@ -26,5 +27,8 @@ function add_class_name($element, $string){
 }
 function w($str){
   return preg_split('/\s+/', $str, -1, PREG_SPLIT_NO_EMPTY);
+}
+function present($key, $arr){
+  return (isset($arr[$key]) && !empty($arr[$key]));
 }
 ?>
