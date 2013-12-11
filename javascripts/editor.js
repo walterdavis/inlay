@@ -1,6 +1,6 @@
 document.observe('dom:loaded', function(){
   $('PageDiv').setStyle('padding-top: 40px;');
-  $(document.body).insert('<div class="title-eyebrow"><a id="back-to-show" href="show.php">⇦</a><div class="editable" id="page-title" data-source="title" data-format="string">' + document.title + '</div></div>');
+  $(document.body).insert('<div class="title-eyebrow"><a id="back-to-show" href="' + window.location.href.split('?').first() + '">⇦</a><div class="editable" id="page-title" data-source="title" data-format="string">' + document.title + '</div></div>');
   $('page-title').setStyle('width:' + $('PageDiv').getStyle('width') + '; margin: auto; font:' + $('PageDiv').getStyle('font'))
   $$('.editable').invoke('observe', 'dblclick', function(evt){
     var elm = this, editor, txt;
@@ -13,7 +13,10 @@ document.observe('dom:loaded', function(){
     }
     editor.writeAttribute('name', elm.readAttribute('data-source'));
     new Ajax.Request('get_raw.php', {
-      parameters: { key: elm.readAttribute('data-source') },
+      parameters: {
+        source: window.location.pathname.sub('/fwCMS/', ''),
+        key: elm.readAttribute('data-source')
+      },
       onSuccess: function(xhr){
         editor.setValue(xhr.responseText);
         editor.focus();
@@ -24,6 +27,7 @@ document.observe('dom:loaded', function(){
         parameters: {
           key: editor.name,
           val: editor.getValue(),
+          source: window.location.pathname.sub('/fwCMS/', ''),
           markdown: (!!elm.hasClassName('markdown'))
         },
         onSuccess: function(xhr){

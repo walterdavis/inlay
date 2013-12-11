@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>{{title}}</title>
+  <title data-source="title">Page Title</title>
   <link rel="stylesheet" href="css/style.css"/>
   
   <!--[if IE]>
@@ -13,13 +13,13 @@
 <body>
   <div id="PageDiv">
     <header>
-      <h1 id="headline" data-format="string" class="foo">
-        {{headline}}
+      <h1 data-format="string" data-source="headline">
+        Here's an H1
       </h1>
     </header>
     <div id="item2">
-      <p id="published_on" data-format="date_string">{{date}}</p>
-      <div id="body" data-format="markdown">{{body}}</div>
+      <p data-format="date_string" data-source="date">Date</p>
+      <div data-format="markdown" data-source="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
     </div>
     <footer>
       <p>Copyright 2013 Walter Davis Studio. All Rights Reserved.</p>
