@@ -25,9 +25,6 @@ function add_class_name($element, $string){
   }
   return $element;
 }
-function w($str){
-  return preg_split('/\s+/', $str, -1, PREG_SPLIT_NO_EMPTY);
-}
 function present($key, $arr){
   return (isset($arr[$key]) && !empty($arr[$key]));
 }
