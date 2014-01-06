@@ -1,7 +1,17 @@
 <?php
 require 'config.inc.php';
-require 'lib/Template.php';
+require('models/element.php');
 $t = new Template('another-page');
 header('Content-type: text/html; charset=utf-8');
-print tidy($t->populate(array('keywords' => 'One, two, three', 'title' => 'The replacement title', 'headline' => 'The newer headline', 'left_column' => 'The left column has fun with this content.', 'right_column' => 'Right on!')));
+$substitutes = array();
+$element = new Element();
+foreach($t->variables as $key => $val){
+  $e = $element->find_by_signature($key);
+  $substitutes[$e->source] = call_user_func($e->format, $e->content);
+}
+print clean_output($t->populate($substitutes));
+$end=microtime(); 
+$end=explode(" ",$end); 
+$end=$end[1]+$end[0]; 
+printf("<!-- Page generated in %f seconds. -->",$end-$start); 
 ?>
