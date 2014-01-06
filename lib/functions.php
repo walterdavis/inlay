@@ -28,4 +28,7 @@ function add_class_name($element, $string){
 function present($key, $arr){
   return (isset($arr[$key]) && !empty($arr[$key]));
 }
+function clean_output($value=''){
+  return str_replace(array('<html><head>', '</body></html>'), array("<html>\n  <head>", "  </body>\n</html>"), $value);
+}
 ?>
