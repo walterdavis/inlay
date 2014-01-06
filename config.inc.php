@@ -1,4 +1,8 @@
 <?php
+// timing
+$start=microtime(); 
+$start=explode(" ",$start); 
+$start=$start[1]+$start[0];
 // MiniActiveRecord
 define('MAR_DSN', 'mysql://root:2lsd9_skdF@localhost/fw_cms');
 define('MAR_LIMIT', 10000);
@@ -14,7 +18,7 @@ require('lib/markdown.php');
 require('lib/smartypants.php');
 require('lib/tidy.php');
 require('lib/functions.php');
-require('models/value.php');
 require('lib/HTML5/Parser.php');
+require 'lib/Template.php';
 define('ROOT', dirname(__FILE__));
 ?>
