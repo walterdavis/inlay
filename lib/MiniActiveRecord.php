@@ -958,7 +958,7 @@ class MiniActiveRecord{
         $params[$keys[$k]] = $v;
       }
       if($match = $this->find_first($options)) return $match;
-      return ((substr($name, 0, 17) == 'find_or_build_by_') ? $this->build($params) : $this->create($params));
+      return (($split_point == 17) ? $this->build($params) : $this->create($params));
     }
   }
   
