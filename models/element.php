@@ -12,6 +12,6 @@
   ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 */
 class Element extends MiniActiveRecord{
-  public $validations = 'presence:key; presence:source; presence:format';
+  public $validations = 'presence:signature';
 }
 ?>
