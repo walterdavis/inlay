@@ -13,5 +13,5 @@ print clean_output($t->populate($substitutes));
 $end=microtime(); 
 $end=explode(" ",$end); 
 $end=$end[1]+$end[0]; 
-printf("<!-- Page generated in %f seconds. -->",$end-$start); 
+if(MAR_DEVELOPER_MODE) printf("<!-- Page generated in %f seconds. -->",$end-$start); 
 ?>
