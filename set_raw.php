@@ -2,10 +2,7 @@
 require( 'config.inc.php' );
 require('models/element.php');
 $element = new Element();
-$e = $element->find_by_signature($_POST['key']);
-if(!$e){
-  $e = $element->build(array('signature' => $_POST['key']));
-}
+$e = $element->find_or_build_by_signature($_POST['key']);
 if($e){
   $e->content = $_POST['val'];
   $e->source = $_POST['source'];
