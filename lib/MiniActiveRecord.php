@@ -937,8 +937,12 @@ class MiniActiveRecord{
       $options['values'] = $arguments;
       return $this->find_all($options);
     }
-    if(substr($name, 0, 18) == 'find_or_create_by_' || substr($name, 0, 19) == 'first_or_create_by_'){
-      $keys = preg_split('/_and_/', substr($name, 18), -1, PREG_SPLIT_NO_EMPTY);
+    
+    if(substr($name, 0, 17) == 'find_or_build_by_' || substr($name, 0, 18) == 'find_or_create_by_' || substr($name, 0, 19) == 'first_or_create_by_'){
+      $split_point = 18;
+      if(false !== strpos($name, 'find_or_build_by_')) $split_point = 17;
+      if(false !== strpos($name, 'first_or_create_by_')) $split_point = 19;
+      $keys = preg_split('/_and_/', substr($name, $split_point), -1, PREG_SPLIT_NO_EMPTY);
       $where = $options = $params = array();
       foreach($keys as $key){
         if(in_array($key, $this->_column_names)){
@@ -953,8 +957,9 @@ class MiniActiveRecord{
       foreach($arguments as $k => $v){
         $params[$keys[$k]] = $v;
       }
+      print_r($options);
       if($match = $this->find_first($options)) return $match;
-      return $this->create($params);
+      return ((substr($name, 0, 17) == 'find_or_build_by_') ? $this->build($params) : $this->create($params));
     }
   }
   
