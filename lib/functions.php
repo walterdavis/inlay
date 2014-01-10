@@ -29,6 +29,8 @@ function present($key, $arr){
   return (isset($arr[$key]) && !empty($arr[$key]));
 }
 function clean_output($value=''){
-  return str_replace(array('<html><head>', '</body></html>'), array("<html>\n  <head>", "  </body>\n</html>"), $value);
+  $value = preg_replace('/<script(.+?)\/>/', "  <script$1>\n  </script>", $value);
+  $value = str_replace(array('<html><head>', '</body></html>', '</script></head>', '</script>  <script'), array("<html>\n  <head>", "  </body>\n</html>", "</script>\n  </head>", "</script>\n  <script"), $value);
+  return $value;
 }
 ?>
