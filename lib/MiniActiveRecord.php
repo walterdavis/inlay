@@ -957,7 +957,6 @@ class MiniActiveRecord{
       foreach($arguments as $k => $v){
         $params[$keys[$k]] = $v;
       }
-      print_r($options);
       if($match = $this->find_first($options)) return $match;
       return ((substr($name, 0, 17) == 'find_or_build_by_') ? $this->build($params) : $this->create($params));
     }
