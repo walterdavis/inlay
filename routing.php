@@ -15,8 +15,10 @@ if(file_exists('./' . $template_path)){
   print '<html><title>404 Not Found</title><body><h1>Not Found</h1><p>The requested URL ' . $_SERVER['REQUEST_URI'] . ' was not found on this server.</p><hr />' . $_SERVER['SERVER_SIGNATURE'] . '</body></html>';
   exit;
 }
-if(present('raw', $_GET)){
+if(present('raw', $_GET) && MAR_DEVELOPER_MODE){
   header('Content-type: text/plain; charset=utf-8');
+  print($template->raw_template);
+  printf("\n<!-- Page generated in %f seconds. -->", timing());
   exit;
 }elseif(present('edit',$_GET)){
   require('edit.php');

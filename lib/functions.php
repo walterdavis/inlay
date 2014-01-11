@@ -33,4 +33,10 @@ function clean_output($value=''){
   $value = str_replace(array('<html><head>', '</body></html>', '</script></head>', '</script>  <script'), array("<html>\n  <head>", "  </body>\n</html>", "</script>\n  </head>", "</script>\n  <script"), $value);
   return $value;
 }
+function timing(){
+  $end=microtime(); 
+  $end=explode(" ",$end); 
+  $end=$end[1]+$end[0]; 
+  return $end - START;
+}
 ?>

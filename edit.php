@@ -15,9 +15,11 @@ $head = $template->xml->head[0];
 $script = $head->addChild('script');
 $script->addAttribute('type', 'text/javascript');
 $script->addAttribute('src', 'http://ajax.googleapis.com/ajax/libs/prototype/1.7/prototype.js');
+$script = $head->addChild('script', "\n    var \$root_folder = '" . ROOT_FOLDER . "';\n  ");
+$script->addAttribute('type', 'text/javascript');
 $script = $head->addChild('script');
 $script->addAttribute('type', 'text/javascript');
-$script->addAttribute('src', 'javascripts/editor.js');
+$script->addAttribute('src', ROOT_FOLDER . '/javascripts/editor.js');
 $template->xml->body[0]->addAttribute('data-key', $template->template_key);
 foreach($template->fields as $k => $field){
   if($field->attributes() && $field->attributes()->{'data-format'} && $field->attributes()->{'data-format'}->{0}){
@@ -27,8 +29,5 @@ foreach($template->fields as $k => $field){
   }
 }
 print clean_output($template->populate($substitutes, false));
-$end=microtime(); 
-$end=explode(" ",$end); 
-$end=$end[1]+$end[0]; 
-if(MAR_DEVELOPER_MODE) printf("<!-- Page generated in %f seconds. -->",$end-$start); 
->
+if(MAR_DEVELOPER_MODE) printf("<!-- Page generated in %f seconds. -->", timing()); 
+?>
