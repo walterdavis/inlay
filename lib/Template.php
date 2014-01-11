@@ -1,9 +1,9 @@
 <?php
 class Template{
-  private $raw_template = null;
   private $template_identifier = null;
   private $template = null;
   private $server = null;
+  public $raw_template = null;
   public $xml = null;
   public $template_key = null;
   public $fields = array();
