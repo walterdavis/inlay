@@ -8,13 +8,17 @@ class Template{
   public $template_key = null;
   public $fields = array();
   public $variables = array();
+  public $base = '';
+  public $doc = null;
   function __construct($template_identifier){
     $this->template_identifier = $template_identifier;
     $this->template = $this->relative_path_to_template();
+    $this->base = ROOT_FOLDER . dirname($this->template);
     $this->server = $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']);
     $this->template_key = md5($this->server . $this->template . SALT);
     $this->raw_template = file_get_contents($this->absolute_path_to_template());
-    $this->xml = simplexml_import_dom(HTML5_Parser::parse($this->raw_template));
+    $this->doc = HTML5_Parser::parse($this->raw_template);
+    $this->xml = simplexml_import_dom($this->doc);
     $this->fields = $this->xml->xpath('//*[@data-source]');
     foreach($this->fields as $k => $variable){
       $key = (string) $variable->attributes()->{'data-source'}->{0};

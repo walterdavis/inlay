@@ -11,15 +11,20 @@ foreach($template->variables as $key => $val){
     $substitutes[$val['source']] = Inflector::humanize($val['source']) . ' is not defined.';
   }
 }
-$head = $template->xml->head[0];
-$script = $head->addChild('script');
-$script->addAttribute('type', 'text/javascript');
-$script->addAttribute('src', 'http://ajax.googleapis.com/ajax/libs/prototype/1.7/prototype.js');
-$script = $head->addChild('script', "\n    var \$root_folder = '" . ROOT_FOLDER . "';\n  ");
-$script->addAttribute('type', 'text/javascript');
-$script = $head->addChild('script');
-$script->addAttribute('type', 'text/javascript');
-$script->addAttribute('src', ROOT_FOLDER . '/javascripts/editor.js');
+$xpath = new DomXPath($template->doc);
+$head = $xpath->query('//head');
+$top = $xpath->query('//head/meta');
+$base = $template->doc->createElement('base');
+$base->setAttribute('href', $template->base);
+$head->item(0)->insertBefore($base, $top->item(0));
+$script = $head->item(0)->appendChild($template->doc->createElement('script'));
+$script->setAttribute('type', 'text/javascript');
+$script->setAttribute('src', 'http://ajax.googleapis.com/ajax/libs/prototype/1.7/prototype.js');
+$script = $head->item(0)->appendChild($template->doc->createElement('script', "\n    var \$root_folder = '" . ROOT_FOLDER . "';\n  "));
+$script->setAttribute('type', 'text/javascript');
+$script = $head->item(0)->appendChild($template->doc->createElement('script'));
+$script->setAttribute('type', 'text/javascript');
+$script->setAttribute('src', ROOT_FOLDER . '/javascripts/editor.js');
 $template->xml->body[0]->addAttribute('data-key', $template->template_key);
 foreach($template->fields as $k => $field){
   if($field->attributes() && $field->attributes()->{'data-format'} && $field->attributes()->{'data-format'}->{0}){

@@ -11,6 +11,12 @@ foreach($template->variables as $key => $val){
     $substitutes[$val['source']] = Inflector::humanize($val['source']) . ' is not defined.';
   }
 }
+$xpath = new DomXPath($template->doc);
+$head = $xpath->query('//head');
+$top = $xpath->query('//head/meta');
+$base = $template->doc->createElement('base');
+$base->setAttribute('href', $template->base);
+$head->item(0)->insertBefore($base, $top->item(0));
 print clean_output($template->populate($substitutes));
 $end=microtime(); 
 $end=explode(" ",$end); 
