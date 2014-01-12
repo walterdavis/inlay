@@ -30,7 +30,7 @@ function present($key, $arr){
 }
 function clean_output($value=''){
   $value = preg_replace('/<script(.+?)\/>/', "  <script$1>\n  </script>", $value);
-  $value = str_replace(array('<html><head>', '</body></html>', '</script></head>', '</script>  <script'), array("<html>\n  <head>", "  </body>\n</html>", "</script>\n  </head>", "</script>\n  <script"), $value);
+  $value = str_replace(array('<html><head>', '</body></html>', '</script></head>', '</script>  <script', '/><meta'), array("<html>\n  <head>", "  </body>\n</html>", "</script>\n  </head>", "</script>\n  <script", "/>\n  <meta"), $value);
   return $value;
 }
 function timing(){
@@ -38,5 +38,10 @@ function timing(){
   $end=explode(" ",$end); 
   $end=$end[1]+$end[0]; 
   return $end - START;
+}
+function missing(){
+  header("HTTP/1.0 404 Not Found", true, 404);
+  print '<html><title>404 Not Found</title><body><h1>Not Found</h1><p>The requested URL ' . $_SERVER['REQUEST_URI'] . ' was not found on this server.</p><hr />' . $_SERVER['SERVER_SIGNATURE'] . '</body></html>';
+  exit;
 }
 ?>
