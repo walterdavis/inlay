@@ -27,9 +27,4 @@ $root_folder = dirname($_SERVER['PHP_SELF']);
 if($root_folder == '/') $root_folder = '';
 define('ROOT_FOLDER', $root_folder);
 unset($root_folder);
-if(MAR_DEVELOPER_MODE){
-  print("<!-- \n");
-  print_r($_SERVER);
-  print(" -->\n");
-}
 ?>
