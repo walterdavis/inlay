@@ -14,7 +14,7 @@ define('DB_CHARSET', 'utf8');
 date_default_timezone_set('UTC');
 require('lib/Inflector.php');
 require('lib/MiniActiveRecord.php');
-
+// templates and routing
 define('SALT', 'WWJlcnogdmNmaHogcWJ5YmUgZnZnIG56cmcsIHBiYWZycGdyZ2hlIG5xdmN2ZnZwdmF0IHJ5dmc=');
 require('lib/markdown.php');
 require('lib/smartypants.php');
