@@ -14,7 +14,9 @@ if(file_exists('./' . $template_path)){
   if($p = $page->find_by_signature($signature)){
     $template = new Template($p->template);
   }else{
-    missing();
+    //missing();
+    header('Location: ' . ROOT_FOLDER . '/choose_template.php?path=' . rawurlencode($template_path));
+    exit;
   }
 }else{
   missing();
@@ -23,6 +25,9 @@ if(present('raw', $_GET) && MAR_DEVELOPER_MODE){
   header('Content-type: text/plain; charset=utf-8');
   print($template->raw_template);
   printf("\n<!-- Page generated in %f seconds. -->", timing());
+  exit;
+}elseif(present('preview', $_GET)){
+  print($template->raw_template);
   exit;
 }elseif(present('edit',$_GET)){
   require('edit.php');
