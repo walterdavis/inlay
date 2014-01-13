@@ -3,7 +3,7 @@ fwCMS
 
 A Freeway-centric CMS that turns any static page into a template for dynamic content.
 
-Requires:
+###Requires:
 
 * Apache or compatible Web server with `mod_rewrite` or equivalent
 * PHP 5.3 or higher
