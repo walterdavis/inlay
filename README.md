@@ -8,7 +8,7 @@ A Freeway-centric CMS that turns any static page into a template for dynamic con
 * Apache or compatible Web server with `mod_rewrite` or equivalent
 * PHP 5.3 or higher
 * MySQL 5.1 or higher, with compatible PDO bindings installed in PHP
-* Freeway 6 or higher (or other HTML5 design tool and text editor to add data- attributes)
+* Freeway 6 or higher (or another HTML5 design tool and text editor to add data- attributes)
 
 ###Design
 
