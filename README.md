@@ -14,7 +14,7 @@ Requires:
 
 Design your template pages as usual. If you are using Freeway, use the fwCMS Action to mark HTML boxes or inline elements as editable fields. Each field on a page must have its own unique name. The fwCMS Page Action may be used to mark the `title` tag as editable, too. If you are not using the Action, you must mark each editable element as follows:
 
-* `data-source` = The name of the data field.
+* `data-source` = The name of the data field. (Must be a valid PHP variable name.)
 * `data-format` = Either `string` or `markdown`, indicating the output format. `markdown` will always return a `<p>` or another block-level tag around its content, so you may not use this format in settings where that combination of tags would be illegal.
 
 Only pages that need to be used as templates must be marked up in this manner. fwCMS can be used in a mixed environment of static pages and either dynamic or virtual pages.
