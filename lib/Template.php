@@ -14,6 +14,7 @@ class Template{
     $this->template_identifier = $template_identifier;
     $this->template = $this->relative_path_to_template();
     $this->base = ROOT_FOLDER . dirname($this->template);
+    $this->base = (substr($this->base, -1) == '/') ? $this->base : $this->base . '/';
     $this->server = $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']);
     $this->template_key = md5($this->server . $this->template . SALT);
     $this->raw_template = file_get_contents($this->absolute_path_to_template());
