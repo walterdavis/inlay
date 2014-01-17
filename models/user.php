@@ -8,7 +8,7 @@ class User extends MiniActiveRecord{
     }
     $this->encrypted_password = crypt($password, $salt);
   }
-  public function validate_password_confirmation(){
+  private function validate_password_confirmation(){
     if(!empty($this->password) && $this->password == $this->password_confirmation){
       return true;
     }else{
