@@ -27,4 +27,6 @@ $root_folder = dirname($_SERVER['PHP_SELF']);
 if($root_folder == '/') $root_folder = '';
 define('ROOT_FOLDER', $root_folder);
 unset($root_folder);
+session_start();
+$flash = '<div class="flash %s"><ul>%s</ul></div>';
 ?>
