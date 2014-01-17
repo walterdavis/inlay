@@ -1,4 +1,9 @@
 <?php
+if(!$current_user){
+  $_SESSION['next'] = $_SERVER['REQUEST_URI'];
+  header('Location: login.php');
+  exit;
+}
 require('models/element.php');
 header('Content-type: text/html; charset=utf-8');
 $substitutes = array();

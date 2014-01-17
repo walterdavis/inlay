@@ -1,5 +1,8 @@
 <?php
 require( 'config.inc.php' );
+if(!$current_user){
+  missing();
+}
 require('models/element.php');
 $element = new Element();
 $e = $element->find_or_build_by_signature($_POST['key']);
