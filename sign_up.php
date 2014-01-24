@@ -22,13 +22,13 @@ if(present('commit', $_POST)){
 <html>
 <head>
   <meta charset="utf-8"/>
-  <title>Log In</title>
+  <title>Sign Up</title>
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8"/>
 </head>
 <body>
   <div id="PageDiv">
     <form action="sign_up.php" method="post" accept-charset="utf-8">
-      <h1 id="please_log_in">Please Log In</h1>
+      <h1 id="please_log_in">Sign up for an Account</h1>
       <fieldset>
         <?php
         if(!!$error){
