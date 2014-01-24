@@ -43,5 +43,5 @@ foreach($template->fields as $k => $field){
   }
 }
 print clean_output($template->populate($substitutes, false));
-if(MAR_DEVELOPER_MODE) printf("<!-- Page generated in %f seconds. -->", timing()); 
+if(MAR_DEVELOPER_MODE) printf("<!-- Generated with love, by Inlay, in %f seconds. -->", timing()); 
 ?>
