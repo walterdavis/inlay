@@ -17,7 +17,7 @@ class Template{
     $this->base = (substr($this->base, -1) == '/') ? $this->base : $this->base . '/';
     $this->server = $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']);
     $this->template_key = md5($this->server . $this->template . SALT);
-    $this->raw_template = file_get_contents($this->absolute_path_to_template());
+    $this->raw_template = str_replace('%', '%%', file_get_contents($this->absolute_path_to_template()));
     $this->doc = HTML5_Parser::parse($this->raw_template);
     $this->xml = simplexml_import_dom($this->doc);
     $this->fields = $this->xml->xpath('//*[@data-source]');
