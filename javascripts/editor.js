@@ -40,7 +40,7 @@ document.observe('dom:loaded', function(){
           if(editor.name == 'title') document.title = xhr.responseText;
           editor.remove(); 
         }
-      })
+      });
     });
     elm.insert(editor);
   });
