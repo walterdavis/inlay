@@ -6,6 +6,7 @@ $start=$start[1]+$start[0];
 define('START', $start);
 unset($start);
 // MiniActiveRecord
+//                         user:password@server/database
 define('MAR_DSN', 'mysql://root:2lsd9_skdF@localhost/fw_cms');
 define('MAR_LIMIT', 10000);
 define('MAR_DEVELOPER_MODE', true);
