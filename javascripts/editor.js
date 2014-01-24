@@ -1,6 +1,11 @@
 document.observe('dom:loaded', function(){
   $('PageDiv').setStyle('padding-top: 40px;');
-  $(document.body).insert('<div class="title-eyebrow"><a id="back-to-show" href="' + window.location.href.split('?').first() + '">⇦</a><div class="editable" id="page-title" data-source="title" data-format="string">' + document.title + '</div></div>');
+  var eyebrow = new Element('div', {className: 'title-eyebrow'});
+  eyebrow.update('<a id="back-to-show" href="' + window.location.href.split('?').first() + '">⇦</a>');
+  if(undefined != $$('title').first().readAttribute('data-source')){
+    eyebrow.insert('<div class="editable" id="page-title" data-source="title" data-format="string">' + document.title + '</div>');
+  }
+  $(document.body).insert(eyebrow);
   $('page-title').setStyle('width:' + $('PageDiv').getStyle('width') + '; margin: auto; font:' + $('PageDiv').getStyle('font'))
   $$('.editable').invoke('observe', 'click', function(evt){
     var elm = this, editor, txt;
