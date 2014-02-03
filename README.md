@@ -1,7 +1,9 @@
-inlay
+Inlay
 =====
 
 A Freeway-centric CMS that turns any static page into a template for dynamic content.
+
+These notes are based on the alpha1 version of Inlay, which is not feature-complete. It should do what is listed below, as long as you follow these notes explicitly.
 
 ###Requires:
 
@@ -9,6 +11,14 @@ A Freeway-centric CMS that turns any static page into a template for dynamic con
 * PHP 5.3 or higher
 * MySQL 5.1 or higher, with compatible PDO bindings installed in PHP
 * Freeway 6 or higher (or another HTML5 design tool and text editor to add data- attributes)
+
+###Installation
+
+1. Copy all files into the folder where you want the site to appear. (This can be your `htdocs` folder, or a subfolder within that.) Make sure that you have enabled "show hidden files" in your SFTP application, so you get the .htaccess file in there. You only need one copy of these files at the top-most level of the site where you want to use Inlay, any subfolders will automatically work.
+
+2. Open the file `_inlay/config.inc.php` in a programmer's editor. At a **minimum**, edit line 9 to provide your database credentials.
+
+3. Open the file `_inlay/bootstrap.sql` and execute the queries within it against the database you defined in step 2.
 
 ###Design
 
@@ -32,59 +42,10 @@ Only pages that you want to use as templates need to be marked up in this manner
 > These are pages that do not exist at all at the URL requested, but are fulfilled using one or another of the Dynamic pages as a template, and a unique set of content for each of the data- variables within that template. An unlimited number of virtual pages may be made from one template.
 
 Once you have defined a page as a dynamic page, it is important that you keep all of the same field names when you edit that page. If you change the names of the fields, you will need to go through the data-entry process again on your server. It does not matter if you change the location of these fields within your design, and you are also free to add new fields if you like, but removing or renaming fields will cause your site to display incorrectly until you update the database to match.
-
-###Upload
-
-Upload your pages to the server as usual. Inside the same folder as your top-level `index.html` page, upload the contents of the fwCMS package. Edit the config.inc.php file to include your database details:
-
-	[line 9] define('MAR_DSN', 'mysql://db_user:db_password@db_server_name/db_name');
-
-Create or select the database matching these credentials in your database server, and run the following SQL queries to generate the tables:
-
-    CREATE TABLE `elements` (
-      `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-      `signature` char(32) NOT NULL DEFAULT '',
-      `source` varchar(255) DEFAULT '',
-      `format` varchar(255) DEFAULT 'string',
-      `content` text,
-      `created_at` datetime NOT NULL,
-      `updated_at` datetime NOT NULL,
-      PRIMARY KEY (`id`),
-      KEY `signature` (`signature`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-    CREATE TABLE `pages` (
-      `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-      `signature` char(32) NOT NULL DEFAULT '',
-      `server` varchar(255) DEFAULT '',
-      `template` varchar(255) DEFAULT '',
-      `path` varchar(1024) DEFAULT NULL,
-      `created_at` datetime NOT NULL,
-      `updated_at` datetime NOT NULL,
-      PRIMARY KEY (`id`),
-      KEY `signature` (`signature`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-    CREATE TABLE `sessions` (
-      `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-      PRIMARY KEY (`id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-    CREATE TABLE `users` (
-      `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-      `first_name` varchar(255) NOT NULL DEFAULT '',
-      `last_name` varchar(255) NOT NULL DEFAULT '',
-      `email` varchar(255) NOT NULL DEFAULT '',
-      `encrypted_password` varchar(255) NOT NULL DEFAULT '',
-      `created_at` datetime NOT NULL,
-      `updated_at` datetime NOT NULL,
-      PRIMARY KEY (`id`),
-      UNIQUE KEY `email` (`email`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
     
 ###Editing and Content Entry
 
-In your browser, visit the first page where you have created dynamic content areas. The dynamic areas will each show the same text: "[field name] is not defined". Enter the editing mode and add your desired content.
+In your browser, visit the first page where you have created dynamic content areas. The dynamic areas will each show the same text: "[field name] is not defined". Enter the editing mode by adding ?edit=true to the URL, and add your desired content as follows:
 
 In the editing mode, each area that can be edited will be surrounded by a blue dashed line. Click once on that area to edit in place. Click anywhere else on the page to return to the formatted content display. There is no need to press a "save" button or anything else, each time you click elsewhere, the database will save your changes.
 
