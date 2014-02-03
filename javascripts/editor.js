@@ -1,4 +1,7 @@
 document.observe('dom:loaded', function(){
+  var page_path = function(){
+    return window.location.href.toString().split(window.location.hostname).last().split('?').first();
+  };
   $('PageDiv').setStyle('padding-top: 40px;');
   var eyebrow = new Element('div', {className: 'title-eyebrow'});
   eyebrow.update('<a id="back-to-show" href="' + window.location.href.split('?').first() + '">⇦</a>');
@@ -21,7 +24,7 @@ document.observe('dom:loaded', function(){
     new Ajax.Request($root_folder + '/get_raw.php', {
       parameters: {
         key: data_key,
-        uri: window.location.href.toString().split(window.location.hostname).last().split('?').first()
+        uri: page_path()
       },
       onSuccess: function(xhr){
         editor.setValue(xhr.responseText);
@@ -33,7 +36,7 @@ document.observe('dom:loaded', function(){
       new Ajax.Updater(elm, $root_folder + '/set_raw.php', {
         parameters: {
           key: data_key,
-          uri: window.location.href.toString().split(window.location.hostname).last().split('?').first(),
+          uri: page_path(),
           source: elm.readAttribute('data-source'),
           val: editor.getValue(),
           format: elm.readAttribute('data-format')
