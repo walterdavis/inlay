@@ -1,18 +1,20 @@
 <?php
 // timing
-$start=microtime(); 
-$start=explode(" ",$start); 
-$start=$start[1]+$start[0];
+$start = microtime(); 
+$start = explode(" ",$start); 
+$start = $start[1] + $start[0];
 define('START', $start);
 unset($start);
 // Database Credentials Go Here:
-//                         user:password@server/database
-define('MAR_DSN', 'mysql://root:2lsd9_skdF@localhost/fw_cms');
+define('MAR_DSN', 'mysql://user:password@server/database');
 define('MAR_LIMIT', 10000);
+// show visible errors?
 define('MAR_DEVELOPER_MODE', true);
+// don't change these unless you have a serious reason to do so
 define('MAR_CHARSET', 'UTF-8');
 define('DB_CHARSET', 'utf8');
 date_default_timezone_set('UTC');
+// start up database
 require('lib/Inflector.php');
 require('lib/MiniActiveRecord.php');
 // templates and routing
@@ -23,6 +25,7 @@ require('lib/tidy.php');
 require('lib/functions.php');
 require('lib/HTML5/Parser.php');
 require 'lib/Template.php';
+// root all paths to the folder containing the _inlay.php file
 define('ROOT', dirname(dirname(__FILE__)));
 $root_folder = str_replace($_SERVER['DOCUMENT_ROOT'], '', ROOT) . '/';
 if($root_folder == '/') $root_folder = '';
