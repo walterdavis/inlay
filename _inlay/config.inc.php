@@ -23,7 +23,7 @@ require('lib/tidy.php');
 require('lib/functions.php');
 require('lib/HTML5/Parser.php');
 require 'lib/Template.php';
-define('ROOT', dirname(__FILE__));
+define('ROOT', dirname(dirname(__FILE__)));
 $root_folder = dirname($_SERVER['PHP_SELF']);
 if($root_folder == '/') $root_folder = '';
 define('ROOT_FOLDER', $root_folder);

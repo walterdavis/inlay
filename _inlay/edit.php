@@ -4,7 +4,7 @@ if(present('current_user', $_SESSION)){
 }
 if(!$current_user){
   $_SESSION['next'] = $_SERVER['REQUEST_URI'];
-  header('Location: login.php');
+  header('Location: ' . ROOT_FOLDER . '/_inlay/login.php');
   exit;
 }
 require('models/element.php');
@@ -33,7 +33,7 @@ $script = $head->item(0)->appendChild($template->doc->createElement('script', "\
 $script->setAttribute('type', 'text/javascript');
 $script = $head->item(0)->appendChild($template->doc->createElement('script'));
 $script->setAttribute('type', 'text/javascript');
-$script->setAttribute('src', ROOT_FOLDER . '/javascripts/editor.js');
+$script->setAttribute('src', ROOT_FOLDER . '/_inlay/javascripts/editor.js');
 $template->xml->body[0]->addAttribute('data-key', $template->template_key);
 foreach($template->fields as $k => $field){
   if($field->attributes() && $field->attributes()->{'data-format'} && $field->attributes()->{'data-format'}->{0}){

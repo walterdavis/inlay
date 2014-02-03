@@ -1,5 +1,5 @@
 <?php
-require('config.inc.php');
+require('_inlay/config.inc.php');
 $template_path = (string) $_GET['path'];
 
 if(substr($template_path, -5) != '.html'){
@@ -8,7 +8,7 @@ if(substr($template_path, -5) != '.html'){
 if(file_exists('./' . $template_path)){
   $template = new Template($template_path);
 }elseif(present('virtual', $_GET)){
-  require('models/page.php');
+  require('_inlay/models/page.php');
   $page = new Page();
   $signature = md5($_SERVER['SERVER_NAME'] . ROOT_FOLDER . $template_path . SALT);
   if($p = $page->find_by_signature($signature)){
@@ -30,9 +30,9 @@ if(present('raw', $_GET) && MAR_DEVELOPER_MODE){
   print($template->raw_template);
   exit;
 }elseif(present('edit',$_GET)){
-  require('edit.php');
+  require('_inlay/edit.php');
   exit;
 }else{
-  require('show.php');
+  require('_inlay/show.php');
 }
 ?>

@@ -21,7 +21,7 @@ document.observe('dom:loaded', function(){
     }
     editor.writeAttribute('name', elm.readAttribute('data-source'));
     var data_key = (editor.name == 'title') ? $$('head title').first().readAttribute('data-key') : elm.readAttribute('data-key');
-    new Ajax.Request($root_folder + '/get_raw.php', {
+    new Ajax.Request($root_folder + '/_inlay/get_raw.php', {
       parameters: {
         key: data_key,
         uri: page_path()
@@ -33,7 +33,7 @@ document.observe('dom:loaded', function(){
     });
     editor.observe('blur', function(){
       var data_key = (editor.name == 'title') ? $$('head title').first().readAttribute('data-key') : elm.readAttribute('data-key');
-      new Ajax.Updater(elm, $root_folder + '/set_raw.php', {
+      new Ajax.Updater(elm, $root_folder + '/_inlay/set_raw.php', {
         parameters: {
           key: data_key,
           uri: page_path(),

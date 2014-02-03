@@ -1,0 +1,154 @@
+body {
+	background-color: #fff;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	color: #333;
+}
+
+.edit-badge {
+	content: '';
+	width: 60px;
+	height: 60px;
+	background: url(../images/corner.png) center center no-repeat;
+	position: absolute;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+#back-to-show {
+	padding: 12px 16px 8px;
+	cursor: pointer;
+	text-decoration: none;
+	float: left;
+	font-size: 36px;
+	line-height: 1px;
+	color: #3a3a3a;
+}
+
+#PageDiv {
+	position: relative;
+	overflow: hidden;
+	width: 750px;
+	margin: 0 auto;
+	padding: 0;
+	font: 13px/1.4 'Lucida Grande', sans-serif;
+}
+
+fieldset, fieldset * {
+	box-sizing: border-box;
+}
+
+fieldset {
+	border: 1px solid #b6b6b6;
+	padding: 1em;
+}
+
+fieldset p {
+	overflow: hidden;
+}
+
+fieldset label {
+	float: left;
+	width: 90px;
+	text-align: right;
+	margin-right: 10px;
+	font-size: smaller;
+}
+
+fieldset input {
+	width: 220px;
+}
+
+fieldset input[type=submit] {
+	margin-left: 100px;
+	width:  auto;
+}
+
+#left {
+	width: 70%;
+	float: left;
+}
+
+#right {
+	width: 25%;
+	float: right;
+	padding-left: 2%;
+	border-left: 1px solid #bbb;
+}
+
+header {
+	overflow: hidden;
+}
+
+footer {
+	font-size: smaller;
+	border-top: 1px solid #ccc;
+	margin-top: 2em;
+	text-align: center;
+	color: #888;
+	overflow: hidden;
+	clear: both;
+}
+
+.editable {
+	border: 2px dashed #c8ddfe !important;
+	position: relative;
+	cursor: pointer;
+}
+
+.editable input, .editable textarea {
+	cursor: text;
+}
+
+.title-eyebrow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 40px;
+	width: 100%;
+	border: none;
+	padding: 8px 16px;
+	background-color: #eee;
+	box-sizing: border-box;
+	box-shadow: 0 2px 2px #ccc;
+}
+
+#page-title:before {
+	content: 'Page title: ';
+}
+
+.editor {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	font: inherit;
+	border: none;
+}
+
+.markdown {
+	min-height: 300px;
+}
+
+.right {
+	float: right;
+	margin-left: 1em;
+	margin-bottom: .3em;
+}
+
+div.flash {
+	padding: .25em 1em;
+	background-color: #c2fea6;
+	border: 1px solid #9aca83;
+	margin: 1em;
+}
+
+div.flash.error {
+	background-color: #fab5aa;
+	border-color: #d1968e;
+}

@@ -29,7 +29,7 @@ if(present('email', $_POST)){
 </head>
 <body>
   <div id="PageDiv">
-    <form action="login.php" method="post" accept-charset="utf-8">
+    <form action="" method="post" accept-charset="utf-8">
       <h1 id="please_log_in">Please Log In</h1>
       <fieldset>
         <?php

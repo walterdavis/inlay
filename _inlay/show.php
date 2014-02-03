@@ -19,8 +19,5 @@ $base = $template->doc->createElement('base');
 $base->setAttribute('href', $template->base);
 $head->item(0)->insertBefore($base, $top->item(0));
 print clean_output($template->populate($substitutes));
-$end=microtime(); 
-$end=explode(" ",$end); 
-$end=$end[1]+$end[0]; 
 if(MAR_DEVELOPER_MODE) printf("<!-- Generated with love, by Inlay, in %f seconds. -->", timing()); 
 ?>
