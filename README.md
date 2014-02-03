@@ -10,7 +10,7 @@ These notes are based on the alpha1 version of Inlay, which is not feature-compl
 * Apache or compatible Web server with `mod_rewrite` or equivalent
 * PHP 5.3 or higher
 * MySQL 5.1 or higher, with compatible PDO bindings installed in PHP
-* Freeway 6 or higher (or another HTML5 design tool and text editor to add data- attributes)
+* Freeway Pro 6 or higher (or another HTML5 design tool and text editor to add data- attributes)
 
 ###Installation
 
@@ -20,14 +20,20 @@ These notes are based on the alpha1 version of Inlay, which is not feature-compl
 
 3. Open the file `_inlay/bootstrap.sql` and execute the queries within it against the database you defined in step 2.
 
+4. Visit the URL `/_inlay/sign_up.php` at your server, and create your user account.
+
 ###Design
 
-Design your template pages as you would any other HTML page, and save them with a normal .html file-type ending. If you are using Freeway, use the fwCMS Action to mark individual HTML boxes or inline elements as editable fields. Each field on a page must have its own unique name. The fwCMS Page Action may be used to mark the `title` tag as editable, too. If you are not using the Action, you may mark each editable element as follows:
+Design your template pages as you would any other HTML page, and save them with a normal .html file-type ending. Upload the pages to the site exactly as you would normally.
+
+Each field on a page must have its own unique name. (Field names may be used over again on other pages, but if you use the same field name twice, you will only get one value -- repeated -- for that duplicate field.) The combination of the page URL and the field name is used to identify each data field, so there is no way to use the same data on more than one page.
+
+If you are using Freeway Pro, the Inlay Action (item-action and inline-action variants) may be used to mark individual page elements or headings as editable. The Inlay Page Action may be used to mark the `title` tag as editable, too. If you are not using the Actions, you may identify each editable element in your template by adding the following HTML5 `data-` attributes:
 
 * `data-source` = The name of the data field. (Must be a valid PHP variable name.)
 * `data-format` = Either `string` or `markdown`, indicating the output format. Content in Markdown format will always return a `<p>` or another block-level tag around its content, so you may not use this format in settings where that combination of tags would be illegal, such as inside another `<p>`.
 
-Only pages that you want to use as templates need to be marked up in this manner. fwCMS may be used in a mixed site, containing static pages and either dynamic or virtual pages.
+Only pages that you want to use as templates need to be marked up in this manner. Inlay may be used in a mixed site, i.e. one containing static pages and either dynamic or virtual pages.
 
 > ####Static Pages
 
@@ -41,7 +47,7 @@ Only pages that you want to use as templates need to be marked up in this manner
 
 > These are pages that do not exist at all at the URL requested, but are fulfilled using one or another of the Dynamic pages as a template, and a unique set of content for each of the data- variables within that template. An unlimited number of virtual pages may be made from one template.
 
-Once you have defined a page as a dynamic page, it is important that you keep all of the same field names when you edit that page. If you change the names of the fields, you will need to go through the data-entry process again on your server. It does not matter if you change the location of these fields within your design, and you are also free to add new fields if you like, but removing or renaming fields will cause your site to display incorrectly until you update the database to match.
+Once you have defined a page as a dynamic page, it is important that you keep all of the same field names when you edit that page. If you change the names of the fields, you will need to go through the data-entry process again on your server. It does not matter if you change the location of these fields within your design, and you are also free to add new fields if you like, but removing or renaming fields after you have entered data will cause your site to be missing that content.
     
 ###Editing and Content Entry
 
@@ -55,4 +61,9 @@ The page title is edited in the gray "eyebrow" that appears at the top of the pa
 
 To create a virtual page, simply navigate to the URL where you want the page to be. A template chooser will appear, allowing you to pick any of the dynamic pages in your site as the template for this new page. Click 'Choose...' and you will enter the editing interface as above. 
 
-Once you have saved this choice, the template chooser will not appear again. 
+Once you have saved this choice, the template chooser will not appear again.
+
+##TODO:
+
+* Change the template on a virtual page after it has been created
+* Create global data elements (for footers or whatever)
