@@ -37,7 +37,7 @@ if(present('email', $_POST)){
           printf($flash, 'error', $error);
         }
         ?>
-        <p><label for="email">E-mail</label><input type="email" name="email" id="email" value=""/></p>
+        <p><label for="email">E-mail</label><input type="email" name="email" id="email" value="" autofocus="autofocus"/></p>
         <p><label for="password">Password</label><input type="password" name="password" id="password" value=""/></p>
         <p><input type="submit" value="Enter"/></p>
       </fieldset>

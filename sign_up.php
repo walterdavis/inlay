@@ -35,7 +35,7 @@ if(present('commit', $_POST)){
           printf($flash, 'error', $error);
         }
         ?>
-        <p><label for="first_name">First name</label><input name="first_name" id="first_name" value="<?= $user->first_name ?>"/></p>
+        <p><label for="first_name">First name</label><input name="first_name" id="first_name" autofocus="autofocus" value="<?= $user->first_name ?>"/></p>
         <p><label for="last_name">Last name</label><input name="last_name" id="last_name" value="<?= $user->last_name ?>"/></p>
         <p><label for="email">E-mail</label><input type="email" name="email" id="email" value="<?= $user->email ?>"/></p>
         <p><label for="password">Password</label><input type="password" name="password" id="password" value=""/></p>
