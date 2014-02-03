@@ -10,7 +10,7 @@ if(isset($_POST['path'])){
     $p->template = $_POST['template_path'];
     $p->path = $path;
     $p->save();
-    header('Location: ' . $path . '?edit=true');
+    header('Location: ../' . $path . '?edit=true');
     exit;
   }
 }
@@ -21,8 +21,9 @@ foreach ($iterator as $filename => $f) {
   if(preg_match('/\.html$/i', $filename)){
     $path = str_replace(ROOT . '/', '', $filename);
     $t = new Template($path);
-    if(count($t->variables) > 0)
+    if(count($t->variables) > 0){
       $templates[$path] = $f->getFilename();
+    }
   }
 }
 ksort($templates);
@@ -71,9 +72,9 @@ $picker .= '</select>';
 </div>
 <script type="text/javascript">
   var p = $('preview');
-  p.src = $F('template_path') + '?preview=true';
+  p.src = '<?php echo ROOT_FOLDER; ?>' + $F('template_path') + '?preview=true';
   $('template_path').observe('change', function(evt){
-    p.src = $F(this) + '?preview=true';
+    p.src = '<?php echo ROOT_FOLDER; ?>' + $F(this) + '?preview=true';
   });
 </script>
 </body>

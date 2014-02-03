@@ -15,7 +15,7 @@ class Template{
     $this->template = $this->relative_path_to_template();
     $this->base = ROOT_FOLDER . dirname($this->template);
     $this->base = (substr($this->base, -1) == '/') ? $this->base : $this->base . '/';
-    $this->server = $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']);
+    $this->server = $_SERVER['HTTP_HOST'] . ROOT_FOLDER;
     $this->template_key = md5($this->server . $this->template . SALT);
     $this->raw_template = str_replace('%', '%%', file_get_contents($this->absolute_path_to_template()));
     $this->doc = HTML5_Parser::parse($this->raw_template);
@@ -41,7 +41,7 @@ class Template{
    * @author Walter Lee Davis
    */
   function relative_path_to_template(){
-    $template_path = './' . $this->template_identifier;
+    $template_path = ROOT . '/' . $this->template_identifier;
     $template_path = (substr($template_path, -5) == '.html') ? $template_path : $template_path . '.html';
     if(!file_exists($template_path)){
       trigger_error('Template::relative_path_to_template(): Template file missing', E_USER_ERROR);

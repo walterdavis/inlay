@@ -5,7 +5,7 @@ $start=explode(" ",$start);
 $start=$start[1]+$start[0];
 define('START', $start);
 unset($start);
-// MiniActiveRecord
+// Database Credentials Go Here:
 //                         user:password@server/database
 define('MAR_DSN', 'mysql://root:2lsd9_skdF@localhost/fw_cms');
 define('MAR_LIMIT', 10000);
@@ -24,7 +24,7 @@ require('lib/functions.php');
 require('lib/HTML5/Parser.php');
 require 'lib/Template.php';
 define('ROOT', dirname(dirname(__FILE__)));
-$root_folder = dirname($_SERVER['PHP_SELF']);
+$root_folder = str_replace($_SERVER['DOCUMENT_ROOT'], '', ROOT) . '/';
 if($root_folder == '/') $root_folder = '';
 define('ROOT_FOLDER', $root_folder);
 unset($root_folder);
