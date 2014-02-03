@@ -12,7 +12,7 @@ if(present('email', $_POST)){
       unset($_SESSION['next']);
       header('Location: ' . $next);
     }else{
-      header('Location: index.html');
+      header('Location: ../index.html');
     }
     exit;
   }else{
@@ -25,11 +25,11 @@ if(present('email', $_POST)){
 <head>
   <meta charset="utf-8"/>
   <title>Log In</title>
-  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8"/>
+  <link rel="stylesheet" href="css/user.css" type="text/css" media="screen" charset="utf-8"/>
 </head>
 <body>
   <div id="PageDiv">
-    <form action="" method="post" accept-charset="utf-8">
+    <form action="login.php" method="post" accept-charset="utf-8">
       <h1 id="please_log_in">Please Log In</h1>
       <fieldset>
         <?php
