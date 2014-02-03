@@ -8,7 +8,7 @@ if(!$current_user){
 }
 require('models/element.php');
 $element = new Element();
-$e = $element->find_or_build_by_signature($_POST['key']);
+$e = $element->find_or_build_by_signature(md5($_POST['key'] . $_POST['uri']));
 if($e){
   $e->content = $_POST['val'];
   $e->source = $_POST['source'];

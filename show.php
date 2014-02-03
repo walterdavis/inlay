@@ -4,12 +4,12 @@ header('Content-type: text/html; charset=utf-8');
 $substitutes = array();
 $element = new Element();
 foreach($template->fields as $k => $field){
-  $key = (string) $field->attributes()->{'data-key'}->{0};
+  $key = md5((string) $field->attributes()->{'data-key'}->{0} . $_SERVER['REDIRECT_URL']);
   $e = $element->find_by_signature($key);
   if($e){
     $substitutes[] = call_user_func($e->format, $e->content);
   }else{
-    $substitutes[] = Inflector::humanize($val['source']) . ' is not defined.';
+    $substitutes[] = Inflector::humanize($field['data-source']) . ' is not defined.';
   }
 }
 $xpath = new DomXPath($template->doc);

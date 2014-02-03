@@ -20,7 +20,8 @@ document.observe('dom:loaded', function(){
     var data_key = (editor.name == 'title') ? $$('head title').first().readAttribute('data-key') : elm.readAttribute('data-key');
     new Ajax.Request($root_folder + '/get_raw.php', {
       parameters: {
-        key: data_key
+        key: data_key,
+        uri: window.location.href.toString().split(window.location.hostname).last().split('?').first()
       },
       onSuccess: function(xhr){
         editor.setValue(xhr.responseText);
@@ -32,6 +33,7 @@ document.observe('dom:loaded', function(){
       new Ajax.Updater(elm, $root_folder + '/set_raw.php', {
         parameters: {
           key: data_key,
+          uri: window.location.href.toString().split(window.location.hostname).last().split('?').first(),
           source: elm.readAttribute('data-source'),
           val: editor.getValue(),
           format: elm.readAttribute('data-format')
