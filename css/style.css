@@ -140,15 +140,3 @@ footer {
 	margin-left: 1em;
 	margin-bottom: .3em;
 }
-
-div.flash {
-	padding: .25em 1em;
-	background-color: #c2fea6;
-	border: 1px solid #9aca83;
-	margin: 1em;
-}
-
-div.flash.error {
-	background-color: #fab5aa;
-	border-color: #d1968e;
-}
