@@ -24,6 +24,7 @@ if(present('commit', $_POST)){
   <meta charset="utf-8"/>
   <title>Sign Up</title>
   <link rel="stylesheet" href="css/user.css" type="text/css" media="screen" charset="utf-8"/>
+  <link rel="stylesheet" href="css/page.css" type="text/css" media="screen" charset="utf-8"/>
 </head>
 <body>
   <div id="PageDiv">

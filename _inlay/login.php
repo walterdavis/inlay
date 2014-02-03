@@ -26,6 +26,7 @@ if(present('email', $_POST)){
   <meta charset="utf-8"/>
   <title>Log In</title>
   <link rel="stylesheet" href="css/user.css" type="text/css" media="screen" charset="utf-8"/>
+  <link rel="stylesheet" href="css/page.css" type="text/css" media="screen" charset="utf-8"/>
 </head>
 <body>
   <div id="PageDiv">

@@ -34,6 +34,10 @@ $script->setAttribute('type', 'text/javascript');
 $script = $head->item(0)->appendChild($template->doc->createElement('script'));
 $script->setAttribute('type', 'text/javascript');
 $script->setAttribute('src', ROOT_FOLDER . '/_inlay/javascripts/editor.js');
+$script = $head->item(0)->appendChild($template->doc->createElement('link'));
+$script->setAttribute('type', 'text/css');
+$script->setAttribute('rel', 'stylesheet');
+$script->setAttribute('href', ROOT_FOLDER . '/_inlay/css/edit.css');
 $template->xml->body[0]->addAttribute('data-key', $template->template_key);
 foreach($template->fields as $k => $field){
   if($field->attributes() && $field->attributes()->{'data-format'} && $field->attributes()->{'data-format'}->{0}){
