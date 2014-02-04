@@ -9,7 +9,7 @@ if(present('commit', $_POST)){
   $user->set_encrypted_password($_POST['password']);
   if($user->save()){
     $_SESSION['current_user'] = $user->id;
-    header('Location: page.html');
+    header('Location: ../index.html');
     exit;
   }else{
     foreach($user->get_errors() as $e){
