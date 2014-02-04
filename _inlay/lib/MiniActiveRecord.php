@@ -46,7 +46,7 @@ class MiniActiveRecord{
    * @author Walter Lee Davis
    */
   function __construct($params = array()){
-    self::initialize();
+    $this->initialize();
     $this->populate($params, true);
   }
   /**
@@ -97,7 +97,7 @@ class MiniActiveRecord{
    */
   private function table(){
     $table = Inflector::tableize($this->_class);
-    $tables = self::tables();
+    $tables = $this->tables();
     $class = $this->_class;
     while(!array_search($table, $tables)){
       $class = get_parent_class($class);
@@ -400,7 +400,7 @@ class MiniActiveRecord{
    */
   function find_first($options = array()){
     $options = array_merge(array('where' => null, 'order' => 'id ASC', 'limit' => 1, 'offset' => 0), $options, array('limit' => 1));
-    if($obj = array_pop(self::find_all($options))) return $obj;
+    if($obj = array_pop($this->find_all($options))) return $obj;
     return false;
   }
   
@@ -509,7 +509,7 @@ class MiniActiveRecord{
    * @author Walter Lee Davis
    */
   function create($options=array()){
-    $obj = self::build($options);
+    $obj = $this->build($options);
     return $obj->save();
   }
   
