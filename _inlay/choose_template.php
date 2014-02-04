@@ -50,12 +50,17 @@ $picker .= '</select>';
       -o-transform:      scale(0.5, 0.5);
       -ms-transform:     scale(0.5, 0.5);
       transform:         scale(0.5, 0.5);
+      -webkit-transform-origin: top center;
+      -moz-transform-origin: top center;
+      -o-transform-origin: top center;
+      -ms-transform-origin: top center;
+      transform-origin: top center;
       border: 1px solid #ccc;
       display: inline-block;
       box-shadow: 0 2px 8px rgba(0,0,0,0.8);
       width: 1024px;
       height: 768px;
-      margin: -25%;
+      margin: 0 -25% -25%;
     }
   </style>
 </head>
@@ -72,9 +77,9 @@ $picker .= '</select>';
 </div>
 <script type="text/javascript">
   var p = $('preview');
-  p.src = '<?php echo ROOT_FOLDER; ?>' + $F('template_path') + '?preview=true';
+  p.src = '<?php echo ROOT_FOLDER; ?>/' + $F('template_path') + '?preview=true';
   $('template_path').observe('change', function(evt){
-    p.src = '<?php echo ROOT_FOLDER; ?>' + $F(this) + '?preview=true';
+    p.src = '<?php echo ROOT_FOLDER; ?>/' + $F(this) + '?preview=true';
   });
 </script>
 </body>
