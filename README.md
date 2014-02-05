@@ -20,7 +20,7 @@ These notes are based on the alpha1 version of Inlay, which is not feature-compl
 
 3. Open the file `_inlay/bootstrap.sql` and execute the queries within it against the database you defined in step 2.
 
-4. Visit the URL `/_inlay/sign_up.php` at your server, and create your user account.
+4. Visit the URL `/_inlay/sign_up.php` at your server, and create your user account. Please note: anyone can do the same, and will be able to edit your test site. Best to not publicize it just yet -- more security is coming soon.
 
 ###Design
 
@@ -69,4 +69,5 @@ Once you have saved this choice, the template chooser will not appear again.
 * Create global data elements (for footers or whatever)
 * Create template areas on the page (for repeating loop structures)
 * Markdown Toolbar
+* Remove dependencies on JavaScript libraries.
 * ???
