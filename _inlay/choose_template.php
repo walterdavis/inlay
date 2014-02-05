@@ -45,16 +45,16 @@ $picker .= '</select>';
   <![endif]-->
   <style type="text/css" media="screen">
     iframe {
-      -webkit-transform: scale(0.5, 0.5);
-      -moz-transform:    scale(0.5, 0.5);
-      -o-transform:      scale(0.5, 0.5);
-      -ms-transform:     scale(0.5, 0.5);
-      transform:         scale(0.5, 0.5);
       -webkit-transform-origin: top center;
-      -moz-transform-origin: top center;
-      -o-transform-origin: top center;
-      -ms-transform-origin: top center;
-      transform-origin: top center;
+      -webkit-transform:        scale(0.5, 0.5);
+      -moz-transform-origin:    top center;
+      -moz-transform:           scale(0.5, 0.5);
+      -o-transform-origin:      top center;
+      -o-transform:             scale(0.5, 0.5);
+      -ms-transform-origin:     top center;
+      -ms-transform:            scale(0.5, 0.5);
+      transform-origin:         top center;
+      transform:                scale(0.5, 0.5);
       border: 1px solid #ccc;
       display: inline-block;
       box-shadow: 0 2px 8px rgba(0,0,0,0.8);
