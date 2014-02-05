@@ -2,20 +2,21 @@ document.observe('dom:loaded', function(){
   var page_path = function(){
     return window.location.href.toString().split(window.location.hostname).last().split('?').first();
   };
-  $('PageDiv').setStyle('padding-top: 40px;');
+  var outer_block = $$('body > *').first().setStyle('padding-top: 40px;');
   var eyebrow = new Element('div', {className: 'title-eyebrow'});
   eyebrow.update('<a id="back-to-show" href="' + window.location.href.split('?').first() + '">⇦</a>');
   if(undefined != $$('title').first().readAttribute('data-source')){
     eyebrow.insert('<div class="editable" id="page-title" data-source="title" data-format="string">' + document.title + '</div>');
   }
   $(document.body).insert(eyebrow);
-  $('page-title').setStyle('width:' + $('PageDiv').getStyle('width') + '; margin: auto; font:' + $('PageDiv').getStyle('font'))
+  $('page-title').setStyle('width:' + outer_block.getStyle('width') + '; margin: auto; font:' + outer_block.getStyle('font'))
   $$('.editable').invoke('observe', 'click', function(evt){
     var elm = this, editor, txt;
     if(elm.down('.editor')) return;
     txt = elm.innerHTML.toString().trim();
-    if(elm.readAttribute('data-format') == 'markdown'){
+    if(elm.readAttribute('data-format') == 'markdown' || elm.innerHTML.stripTags().trim().match(/[\n\r]/)){
       editor = new Element('textarea', {'class':'editor'});
+      if(elm.readAttribute('data-format') == 'markdown') editor.addClassName('markdown');
     }else{
       editor = new Element('input', {type: 'text', 'class':'editor'});
     }
