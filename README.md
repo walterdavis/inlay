@@ -67,3 +67,6 @@ Once you have saved this choice, the template chooser will not appear again.
 
 * Change the template on a virtual page after it has been created
 * Create global data elements (for footers or whatever)
+* Create template areas on the page (for repeating loop structures)
+* Markdown Toolbar
+* ???
