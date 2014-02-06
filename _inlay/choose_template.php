@@ -1,5 +1,13 @@
 <?php
 require('config.inc.php');
+if(present('current_user', $_SESSION)){
+  $current_user = $_SESSION['current_user'];
+}
+if(!$current_user){
+  $_SESSION['next'] = $_SERVER['REQUEST_URI'];
+  header('Location: /' . join_path(array(ROOT_FOLDER, '/_inlay')) . '/login.php');
+  exit;
+}
 if(isset($_POST['path'])){
   require('models/page.php');
   $page = new Page();
