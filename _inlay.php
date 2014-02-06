@@ -15,7 +15,7 @@ if(file_exists('./' . $template_path)){
     $template = new Template($p->template);
   }else{
     //missing();
-    header('Location: ' . ROOT_FOLDER . '_inlay/choose_template.php?path=' . rawurlencode($template_path));
+    header('Location: /' . join_path(array(ROOT_FOLDER, '/_inlay')) . '/choose_template.php?path=' . rawurlencode($template_path));
     exit;
   }
 }else{

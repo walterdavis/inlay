@@ -4,7 +4,7 @@ if(present('current_user', $_SESSION)){
 }
 if(!$current_user){
   $_SESSION['next'] = $_SERVER['REQUEST_URI'];
-  header('Location: ' . ROOT_FOLDER . '/_inlay/login.php');
+  header('Location: /' . join_path(array(ROOT_FOLDER, '/_inlay')) . '/login.php');
   exit;
 }
 require('models/element.php');

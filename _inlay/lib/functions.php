@@ -44,4 +44,11 @@ function missing(){
   print '<html><title>404 Not Found</title><body><h1>Not Found</h1><p>The requested URL ' . $_SERVER['REQUEST_URI'] . ' was not found on this server.</p><hr />' . $_SERVER['SERVER_SIGNATURE'] . '</body></html>';
   exit;
 }
+function join_path($parts=array()){
+  $out = array();
+  foreach($parts as $part){
+    $out[] = trim($part," \t\n\r\0\x0B/\\");
+  }
+  return implode(DIRECTORY_SEPARATOR, $out);
+}
 ?>
