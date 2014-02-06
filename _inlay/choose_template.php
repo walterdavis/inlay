@@ -27,11 +27,14 @@ foreach ($iterator as $filename => $f) {
   }
 }
 ksort($templates);
-$picker = '<select name="template_path" id="template_path" size="1">';
-foreach($templates as $path => $name){
-  $picker .= '<option value="' . $path . '">' . $path . '</option>';
+$picker = '<strong>You don’t have any templates in this site!</strong>';
+if(count($templates) > 0){
+  $picker = '<select name="template_path" id="template_path" size="1">';
+  foreach($templates as $path => $name){
+    $picker .= '<option value="' . $path . '">' . $path . '</option>';
+  }
+  $picker .= '</select>';
 }
-$picker .= '</select>';
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,6 +78,7 @@ $picker .= '</select>';
     <p style="text-align: center; position: relative; overflow: hidden; padding: 1em"><iframe id="preview" src="about:blank" frameborder="0" seamless></iframe></p>
   </form>
 </div>
+<?php if(count($templates) > 0){ ?>
 <script type="text/javascript">
   var p = $('preview');
   p.src = '<?php echo ROOT_FOLDER; ?>/' + $F('template_path') + '?preview=true';
@@ -82,5 +86,6 @@ $picker .= '</select>';
     p.src = '<?php echo ROOT_FOLDER; ?>/' + $F(this) + '?preview=true';
   });
 </script>
+<?php } ?>
 </body>
 </html>
