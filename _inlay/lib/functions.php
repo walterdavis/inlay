@@ -51,4 +51,14 @@ function join_path($parts=array()){
   }
   return implode(DIRECTORY_SEPARATOR, $out);
 }
+function get_connection(){
+  $params = parse_url(MAR_DSN);
+  $dsn = sprintf('%s:host=%s;dbname=%s', $params['scheme'], $params['host'], str_replace('/','',$params['path']));
+  $db = new PDO($dsn, $params['user'],$params['pass'], array(
+    PDO::ATTR_PERSISTENT => true
+  ));
+  $db->exec("SET NAMES '" . DB_CHARSET . "';");
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+  return $db;
+}
 ?>

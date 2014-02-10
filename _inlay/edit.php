@@ -17,7 +17,7 @@ foreach($template->fields as $k => $field){
   if($e){
     $substitutes[] = call_user_func($e->format, $e->content);
   }else{
-    $substitutes[] = Inflector::humanize($field['data-source']) . ' is not defined.';
+    $substitutes[] = Inflector::humanize($field['data-inlay-source']) . ' is not defined.';
   }
 }
 $xpath = new DomXPath($template->doc);
@@ -40,8 +40,8 @@ $script->setAttribute('rel', 'stylesheet');
 $script->setAttribute('href', ROOT_FOLDER . '/_inlay/css/edit.css');
 $template->xml->body[0]->addAttribute('data-key', $template->template_key);
 foreach($template->fields as $k => $field){
-  if($field->attributes() && $field->attributes()->{'data-format'} && $field->attributes()->{'data-format'}->{0}){
-    $format = (string) $field->attributes()->{'data-format'}->{0};
+  if($field->attributes() && $field->attributes()->{'data-inlay-format'} && $field->attributes()->{'data-inlay-format'}->{0}){
+    $format = (string) $field->attributes()->{'data-inlay-format'}->{0};
     add_class_name($field, 'editable');
     add_class_name($field, $format);
   }

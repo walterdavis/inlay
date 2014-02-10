@@ -1,6 +1,6 @@
 <action-encoding>UTF-8</action-encoding>
 <action name="Inlay"  height="12" width="50">
-<action-version version="0.1">
+<action-version version="0.2">
 Inlay Action
 (c)2013 Walter Davis Studio
 </action-version>
@@ -21,8 +21,8 @@ function fwBeforeEndBody(){
         fwAbort('“' + source + '” is not a valid variable name. Publishing cannot continue.');
       if(format == 'markdown' && enclosing.fwTitle.toString().match(/p|h\d/)) 
         fwAbort('<' + enclosing.fwTitle.toString() + '> elements cannot contain Markdown content. Publishing cannot continue.');
-      enclosing['data-format'] = fwQuote(format);
-      enclosing['data-source'] = fwQuote(source);
+      enclosing['data-inlay-format'] = fwQuote(format);
+      enclosing['data-inlay-source'] = fwQuote(source);
     }
     element.fwDelete();
   }
@@ -30,7 +30,7 @@ function fwBeforeEndBody(){
 </action-javascript>
 </action>
 <item-action name="Inlay">
-<action-version version="0.1">
+<action-version version="0.2">
 Inlay Action
 (c)2013 Walter Davis Studio
 </action-version>
@@ -47,8 +47,8 @@ function fwBeforeEndBody(){
     if(source.length < 1) fwAbort('Enter a variable name');
     if(!source.match(/^[a-z][a-z0-9_]+$/)) 
       fwAbort('“' + source + '” is not a valid variable name. Publishing cannot continue.')
-    element['data-format'] = fwQuote(fwParameters.format.fwValue);
-    element['data-source'] = fwQuote(source);
+    element['data-inlay-format'] = fwQuote(fwParameters.format.fwValue);
+    element['data-inlay-source'] = fwQuote(source);
   }
 }
 </action-javascript>
@@ -68,7 +68,8 @@ function fwBeforeEndHead(){
     if(source.length < 1) fwAbort('Enter a variable name');
     if(!source.match(/^[a-z][a-z0-9_]+$/)) 
       fwAbort('“' + source + '” is not a valid variable name. Publishing cannot continue.')
-    title['data-source'] = fwQuote(source);
+    title['data-inlay-source'] = fwQuote(source);
+    title['data-inlay-format'] = fwQuote('string');
   }
 }
 </action-javascript>

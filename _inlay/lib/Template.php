@@ -20,14 +20,14 @@ class Template{
     $this->raw_template = str_replace('%', '%%', file_get_contents($this->absolute_path_to_template()));
     $this->doc = HTML5_Parser::parse($this->raw_template);
     $this->xml = simplexml_import_dom($this->doc);
-    $this->fields = $this->xml->xpath('//*[@data-source]');
+    $this->fields = $this->xml->xpath('//*[@data-inlay-source]');
     foreach($this->fields as $k => $variable){
-      $key = (string) $variable->attributes()->{'data-source'}->{0};
+      $key = (string) $variable->attributes()->{'data-inlay-source'}->{0};
       $crypt = md5($this->template_key . $key);
       $this->fields[$k]->addAttribute('data-key', $crypt);
       $format = 'string';
-      if($variable->attributes() && $variable->attributes()->{'data-format'} && $variable->attributes()->{'data-format'}->{0}){
-        $format = (string) $variable->attributes()->{'data-format'}->{0};
+      if($variable->attributes() && $variable->attributes()->{'data-inlay-format'} && $variable->attributes()->{'data-inlay-format'}->{0}){
+        $format = (string) $variable->attributes()->{'data-inlay-format'}->{0};
       }
       $this->variables[$crypt]['source'] = $key;
       $this->variables[$crypt]['format'] = $format;
@@ -67,8 +67,8 @@ class Template{
   function populate($substitutes = array(), $strip = true){
     foreach($this->fields as $k => $variable){
       if($variable->attributes() && $strip){
-        unset($variable->attributes()->{'data-format'});
-        unset($variable->attributes()->{'data-source'});
+        unset($variable->attributes()->{'data-inlay-format'});
+        unset($variable->attributes()->{'data-inlay-source'});
         unset($variable->attributes()->{'data-key'});
       }
       if((string)$variable->getName() != 'meta'){

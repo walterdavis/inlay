@@ -16,11 +16,13 @@ These notes are based on the alpha1 version of Inlay, which is not feature-compl
 
 1. Copy all files into the folder where you want the site to appear. (This can be your `htdocs` folder, or a subfolder within that.) Make sure that you have enabled "show hidden files" in your SFTP application, so you get the .htaccess file in there. You only need one copy of these files at the top-most level of the site where you want to use Inlay, any subfolders will automatically work.
 
-2. Open the file `_inlay/config.inc.php` in a programmer's editor. At a **minimum**, edit line 9 to provide your database credentials.
+2. Open the file `_inlay/config.inc.php` in a programmer's editor. At a **minimum**, edit line 9 to provide your database credentials. Other options are marked with comments, you may edit them as you like.
 
-3. Open the file `_inlay/bootstrap.sql` and execute the queries within it against the database you defined in step 2.
+3. Visit the URL `[your server url]/_inlay/setup.php` in your browser. If you see any error messages, make the corrections requested there. Once you see the message "Inlay is ready to go!", then you are ready to continue to the next step.
 
-4. Visit the URL `/_inlay/sign_up.php` at your server, and create your user account. Please note: anyone can do the same, and will be able to edit your test site. Best to not publicize it just yet -- more security is coming soon.
+4. Visit the URL `[your server url]/_inlay/sign_up.php` in your browser, and create your user account. Please note: anyone can do the same, and will be able to edit your test site. Best to not publicize it just yet -- more security is coming soon.
+
+5. Make sure you have uploaded at least one template to the same folder (or a subfolder within) the folder on your server containing your `_inlay.php` file before you start using Inlay. You may read more about creating templates in the next section of this guide.
 
 ###Design
 
@@ -28,16 +30,18 @@ Design your template pages as you would any other HTML page, and save them with 
 
 Each field on a page must have its own unique name. (Field names may be used over again on other pages, but if you use the same field name twice, you will only get one value -- repeated -- for that duplicate field.) The combination of the page URL and the field name is used to identify each data field, so there is no way to use the same data on more than one page.
 
-If you are using Freeway Pro, the Inlay Action (item-action and inline-action variants) may be used to mark individual page elements or headings as editable. The Inlay Page Action may be used to mark the `title` tag as editable, too. If you are not using the Actions, you may identify each editable element in your template by adding the following HTML5 `data-` attributes:
+If you are using Freeway Pro, the Inlay Action (item-action and inline-action variants) may be used to mark individual page elements or headings as editable. The Inlay Page Action may be used to mark the `title` tag as editable, too. Only the elements that you have marked in this fashion will be editable in Inlay.
 
-* `data-source` = The name of the data field. (Must be a valid PHP variable name.)
-* `data-format` = Either `string` or `markdown`, indicating the output format. Content in Markdown format will always return a `<p>` or another block-level tag around its content, so you may not use this format in settings where that combination of tags would be illegal, such as inside another `<p>`.
+If you are not using the Actions, you may identify each editable element in your template by adding the following HTML5 `data-` attributes:
 
-Only pages that you want to use as templates need to be marked up in this manner. Inlay may be used in a mixed site, i.e. one containing static pages and either dynamic or virtual pages.
+* `data-inlay-source` = The name of the data field. (Must begin with a letter a-z, and may not contain any spaces or punctuation besides the underscore character.)
+* `data-inlay-format` = Either `string` or `markdown`, indicating the output format. Content in Markdown format will always return a `<p>` or another block-level tag around its content, so you may not use this format in settings where that combination of tags would be illegal, such as inside another `<p>`.
+
+Only pages that you want to use as templates need to be marked up in this manner. Inlay may be used in a mixed site, i.e. one containing a mix of static pages and either dynamic or virtual pages.
 
 > ####Static Pages
 
-> Just like any other HTML pages, these are static pages (or pages that use a different dynamic replacement system) and do not have any `data-source` or `data-format` markings within them.
+> Just like any other HTML pages, these are static pages (or pages that use a different dynamic replacement system) and do not have any `data-inlay-source` or `data-inlay-format` markings within them.
 
 > ####Dynamic Pages
 
@@ -70,4 +74,5 @@ Once you have saved this choice, the template chooser will not appear again.
 * Create template areas on the page (for repeating loop structures)
 * Markdown Toolbar
 * Remove dependencies on JavaScript libraries.
+* i18n
 * ???

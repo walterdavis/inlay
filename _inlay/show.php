@@ -9,7 +9,7 @@ foreach($template->fields as $k => $field){
   if($e){
     $substitutes[] = call_user_func($e->format, $e->content);
   }else{
-    $substitutes[] = Inflector::humanize($field['data-source']) . ' is not defined.';
+    $substitutes[] = Inflector::humanize($field['data-inlay-source']) . ' is not defined.';
   }
 }
 $xpath = new DomXPath($template->doc);

@@ -15,6 +15,7 @@ if(file_exists('./' . $template_path)){
     $template = new Template($p->template);
   }else{
     //missing();
+    //need to check if the user has a cookie at this point, and 404 if not.
     header('Location: /' . join_path(array(ROOT_FOLDER, '/_inlay')) . '/choose_template.php?path=' . rawurlencode($template_path));
     exit;
   }
