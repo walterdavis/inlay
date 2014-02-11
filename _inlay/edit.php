@@ -4,8 +4,7 @@ if(present('current_user', $_SESSION)){
 }
 if(!$current_user){
   $_SESSION['next'] = $_SERVER['REQUEST_URI'];
-  header('Location: /' . join_path(array(ROOT_FOLDER, '/_inlay')) . '/login.php');
-  exit;
+  redirect_to('/_inlay/login.php');
 }
 require('models/element.php');
 header('Content-type: text/html; charset=utf-8');

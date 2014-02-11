@@ -5,8 +5,7 @@ if(present('current_user', $_SESSION)){
 }
 if(!$current_user){
   $_SESSION['next'] = $_SERVER['REQUEST_URI'];
-  header('Location: /' . join_path(array(ROOT_FOLDER, '/_inlay')) . '/login.php');
-  exit;
+  redirect_to('/_inlay/login.php');
 }
 if(isset($_POST['path'])){
   require('models/page.php');
@@ -18,8 +17,7 @@ if(isset($_POST['path'])){
     $p->template = $_POST['template_path'];
     $p->path = $path;
     $p->save();
-    header('Location: ../' . $path . '?edit=true');
-    exit;
+    redirect_to($path . '?edit=true');
   }
 }
 $directory = new RecursiveDirectoryIterator(ROOT);

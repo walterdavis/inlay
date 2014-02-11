@@ -10,11 +10,10 @@ if(present('email', $_POST)){
     if(present('next', $_SESSION)){
       $next = $_SESSION['next'];
       unset($_SESSION['next']);
-      header('Location: ' . $next);
+      redirect_to($next);
     }else{
-      header('Location: ../index.html');
+      redirect_to('/index.html');
     }
-    exit;
   }else{
     $error = '<li>Invalid username or password</li>';
   }
