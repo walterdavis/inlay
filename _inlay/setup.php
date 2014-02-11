@@ -24,6 +24,7 @@ if($db = get_connection()){
   foreach($db->query('SHOW TABLES') as $row){
     $tables[] = $row[0];
   }
+  print "\n";
   if(array('elements','pages','sessions','users') != $tables){
     $db->query(file_get_contents('bootstrap.sql'));
     print 'Database tables created!' . "\n";
@@ -36,6 +37,7 @@ if($db = get_connection()){
 print '
 
 Inlay is ready to go!
+=====================
 
 You may remove this file from your server if you want to,
 although it does no harm to leave it in place.';
