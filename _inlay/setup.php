@@ -1,7 +1,7 @@
 <?php
+require('config.inc.php');
 header('Content-type: text/plain');
 print "Inlay (alpha) setup utility\n===========================\n\n";
-require('config.inc.php');
 if( ! function_exists('apache_get_modules') ){ phpinfo(); die; }
 if(in_array('mod_rewrite', apache_get_modules())){
   print "Apache mod_rewrite is available.\n";
