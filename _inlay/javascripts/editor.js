@@ -21,7 +21,7 @@ document.observe('dom:loaded', function(){
       editor = new Element('input', {type: 'text', 'class':'editor'});
     }
     editor.writeAttribute('name', elm.readAttribute('data-inlay-source'));
-    var data_key = (editor.name == 'title') ? $$('head title').first().readAttribute('data-key') : elm.readAttribute('data-key');
+    var data_key = (editor.name == 'title') ? $$('head title').first().readAttribute('data-inlay-key') : elm.readAttribute('data-inlay-key');
     new Ajax.Request($root_folder + '/_inlay/get_raw.php', {
       parameters: {
         key: data_key,
@@ -33,7 +33,7 @@ document.observe('dom:loaded', function(){
       }
     });
     editor.observe('blur', function(){
-      var data_key = (editor.name == 'title') ? $$('head title').first().readAttribute('data-key') : elm.readAttribute('data-key');
+      var data_key = (editor.name == 'title') ? $$('head title').first().readAttribute('data-inlay-key') : elm.readAttribute('data-inlay-key');
       new Ajax.Updater(elm, $root_folder + '/_inlay/set_raw.php', {
         parameters: {
           key: data_key,

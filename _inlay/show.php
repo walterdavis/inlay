@@ -4,7 +4,7 @@ header('Content-type: text/html; charset=utf-8');
 $substitutes = array();
 $element = new Element();
 foreach($template->fields as $k => $field){
-  $key = md5((string) $field->attributes()->{'data-key'}->{0} . $_SERVER['REDIRECT_URL']);
+  $key = md5((string) $field->attributes()->{'data-inlay-key'}->{0} . $_SERVER['REDIRECT_URL']);
   $e = $element->find_by_signature($key);
   if($e){
     $substitutes[] = call_user_func($e->format, $e->content);

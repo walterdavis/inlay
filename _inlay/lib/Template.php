@@ -24,7 +24,7 @@ class Template{
     foreach($this->fields as $k => $variable){
       $key = (string) $variable->attributes()->{'data-inlay-source'}->{0};
       $crypt = md5($this->template_key . $key);
-      $this->fields[$k]->addAttribute('data-key', $crypt);
+      $this->fields[$k]->addAttribute('data-inlay-key', $crypt);
       $format = 'string';
       if($variable->attributes() && $variable->attributes()->{'data-inlay-format'} && $variable->attributes()->{'data-inlay-format'}->{0}){
         $format = (string) $variable->attributes()->{'data-inlay-format'}->{0};
@@ -69,7 +69,7 @@ class Template{
       if($variable->attributes() && $strip){
         unset($variable->attributes()->{'data-inlay-format'});
         unset($variable->attributes()->{'data-inlay-source'});
-        unset($variable->attributes()->{'data-key'});
+        unset($variable->attributes()->{'data-inlay-key'});
       }
       if((string)$variable->getName() != 'meta'){
         $variable[0][0] = '%s';
@@ -77,7 +77,7 @@ class Template{
         $variable['content'] = '%s';
       }
     }
-    if($strip) unset($this->xml->body->attributes()->{'data-key'});
+    if($strip) unset($this->xml->body->attributes()->{'data-inlay-key'});
     return vsprintf($this->xml->asXML(), $substitutes);
   }
 }

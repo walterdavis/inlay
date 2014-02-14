@@ -11,7 +11,7 @@ header('Content-type: text/html; charset=utf-8');
 $substitutes = array();
 $element = new Element();
 foreach($template->fields as $k => $field){
-  $key = md5((string) $field->attributes()->{'data-key'}->{0} . $_SERVER['REDIRECT_URL']);
+  $key = md5((string) $field->attributes()->{'data-inlay-key'}->{0} . $_SERVER['REDIRECT_URL']);
   $e = $element->find_by_signature($key);
   if($e){
     $substitutes[] = call_user_func($e->format, $e->content);
@@ -37,7 +37,7 @@ $script = $head->item(0)->appendChild($template->doc->createElement('link'));
 $script->setAttribute('type', 'text/css');
 $script->setAttribute('rel', 'stylesheet');
 $script->setAttribute('href', ROOT_FOLDER . '/_inlay/css/edit.css');
-$template->xml->body[0]->addAttribute('data-key', $template->template_key);
+$template->xml->body[0]->addAttribute('data-inlay-key', $template->template_key);
 foreach($template->fields as $k => $field){
   if($field->attributes() && $field->attributes()->{'data-inlay-format'} && $field->attributes()->{'data-inlay-format'}->{0}){
     $format = (string) $field->attributes()->{'data-inlay-format'}->{0};
