@@ -2,13 +2,13 @@ document.observe('dom:loaded', function(){
   var page_path = function(){
     return window.location.href.toString().split(window.location.hostname).last().split('?').first();
   };
-  var outer_block = $$('body > *').first().setStyle('padding-top: 40px;');
-  var eyebrow = new Element('div', {className: 'title-eyebrow'});
-  eyebrow.update('<a id="back-to-show" href="' + window.location.href.split('?').first() + '">⇦</a>');
+  var outer_block = $$('body > *').first();
+  var edit_bar = new Element('div', {className: 'title-edit-bar'});
+  edit_bar.update('<a id="back-to-show" href="' + window.location.href.split('?').first() + '">⇦</a>');
   if(undefined != $$('title').first().readAttribute('data-inlay-source')){
-    eyebrow.insert('<div class="editable" id="page-title" data-inlay-source="title" data-inlay-format="string">' + document.title + '</div>');
+    edit_bar.insert('<div class="editable" id="page-title" data-inlay-source="title" data-inlay-format="string">' + document.title + '</div>');
   }
-  $(document.body).insert(eyebrow);
+  $(document.body).insert(edit_bar);
   $('page-title').setStyle('width:' + outer_block.getStyle('width') + '; margin: auto; font:' + outer_block.getStyle('font'))
   $$('.editable').invoke('observe', 'click', function(evt){
     var elm = this, editor, txt;
