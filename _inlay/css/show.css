@@ -1,0 +1,25 @@
+.title-show-bar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50px;
+	border: none;
+	background-color: #eee;
+	box-sizing: border-box;
+	z-index: 10000;
+	-webkit-border-bottom-right-radius: 13px;
+	-moz-border-radius-bottomright: 13px;
+	border-bottom-right-radius: 13px;
+}
+
+#inlay-icon {
+	padding: 6px 0;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 36px;
+	line-height: 1;
+	color: #3a3a3a;
+	display: block;
+	margin: auto;
+	text-align: center;
+}
