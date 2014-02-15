@@ -47,7 +47,8 @@ function missing(){
 function join_path($parts=array()){
   $out = array();
   foreach($parts as $part){
-    $out[] = trim($part," \t\n\r\0\x0B/\\");
+    $p = trim($part," \t\n\r\0\x0B/\\");
+    if(strlen($p) > 0) $out[] = $p;
   }
   return implode(DIRECTORY_SEPARATOR, $out);
 }
