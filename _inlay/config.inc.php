@@ -27,7 +27,7 @@ require('lib/HTML5/Parser.php');
 require 'lib/Template.php';
 // root all paths to the folder containing the _inlay.php file
 define('ROOT', dirname(dirname(__FILE__)));
-define('ROOT_FOLDER', str_replace($_SERVER['DOCUMENT_ROOT'], '', ROOT) . '/');
+define('ROOT_FOLDER', preg_replace('/\/+/', '/', str_replace($_SERVER['DOCUMENT_ROOT'], '', ROOT) . '/'));
 session_start();
 $flash = '<div class="flash %s"><ul>%s</ul></div>';
 ?>
