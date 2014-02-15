@@ -4,13 +4,19 @@ document.observe('dom:loaded', function(){
   };
   var outer_block = $$('body > *').first();
   var edit_bar = new Element('div', {className: 'title-edit-bar'});
-  edit_bar.update('<a id="back-to-show" href="' + window.location.href.split('?').first() + '">⇦</a>');
+  edit_bar.update('<a id="inlay-icon" href="' + window.location.href.split('?').first() + '" title="Back to page">i</a>');
   if(undefined != $$('title').first().readAttribute('data-inlay-source')){
-    edit_bar.insert('<div class="editable" id="page-title" data-inlay-source="title" data-inlay-format="string">' + document.title + '</div>');
+    edit_bar.insert('<div id="title-button"><span class="inlay-button">title</span><div id="page-title" style="display:none" data-inlay-source="title" data-inlay-format="string">' + document.title + '</div></div>');
   }
   $(document.body).insert(edit_bar);
-  $('page-title').setStyle('width:' + outer_block.getStyle('width') + '; margin: auto; font:' + outer_block.getStyle('font'))
-  $$('.editable').invoke('observe', 'click', function(evt){
+  $('page-title').setStyle('font:' + outer_block.getStyle('font')); 
+  $$('#title-button').invoke('observe', 'click', function(evt){
+    evt.stop();
+    $('page-title').toggle();
+    if($('page-title').visible()) $('page-title').click();
+  });
+  $$('.editable, #page-title').invoke('observe', 'click', function(evt){
+    evt.stop();
     var elm = this, editor, txt;
     if(elm.down('.editor')) return;
     txt = elm.innerHTML.toString().trim();
@@ -22,7 +28,7 @@ document.observe('dom:loaded', function(){
     }
     editor.writeAttribute('name', elm.readAttribute('data-inlay-source'));
     var data_key = (editor.name == 'title') ? $$('head title').first().readAttribute('data-inlay-key') : elm.readAttribute('data-inlay-key');
-    new Ajax.Request($root_folder + '/_inlay/get_raw.php', {
+    new Ajax.Request($root_folder + '_inlay/get_raw.php', {
       parameters: {
         key: data_key,
         uri: page_path()
@@ -34,7 +40,7 @@ document.observe('dom:loaded', function(){
     });
     editor.observe('blur', function(){
       var data_key = (editor.name == 'title') ? $$('head title').first().readAttribute('data-inlay-key') : elm.readAttribute('data-inlay-key');
-      new Ajax.Updater(elm, $root_folder + '/_inlay/set_raw.php', {
+      new Ajax.Updater(elm, $root_folder + '_inlay/set_raw.php', {
         parameters: {
           key: data_key,
           uri: page_path(),
@@ -43,7 +49,10 @@ document.observe('dom:loaded', function(){
           format: elm.readAttribute('data-inlay-format')
         },
         onSuccess: function(xhr){
-          if(editor.name == 'title') document.title = xhr.responseText;
+          if(editor.name == 'title'){
+            document.title = xhr.responseText;
+            $('page-title').hide();
+          }
           editor.remove(); 
         }
       });
