@@ -13,8 +13,8 @@ class Template{
   function __construct($template_identifier){
     $this->template_identifier = $template_identifier;
     $this->template = $this->relative_path_to_template();
-    $this->base = ROOT_FOLDER . dirname($this->template);
-    $this->base = (substr($this->base, -1) == '/') ? $this->base : $this->base . '/';
+    $this->base = '/' . join_path(array(ROOT_FOLDER, dirname($this->template))) . '/';
+    $this->base = preg_replace('/\/+/', '/', $this->base);
     $this->server = $_SERVER['HTTP_HOST'] . ROOT_FOLDER;
     $this->template_key = md5($this->server . $this->template . SALT);
     $this->raw_template = str_replace('%', '%%', file_get_contents($this->absolute_path_to_template()));
