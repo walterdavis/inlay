@@ -32,11 +32,11 @@ $script = $head->item(0)->appendChild($template->doc->createElement('script', "\
 $script->setAttribute('type', 'text/javascript');
 $script = $head->item(0)->appendChild($template->doc->createElement('script'));
 $script->setAttribute('type', 'text/javascript');
-$script->setAttribute('src', ROOT_FOLDER . '/_inlay/javascripts/editor.js');
-$script = $head->item(0)->appendChild($template->doc->createElement('link'));
-$script->setAttribute('type', 'text/css');
-$script->setAttribute('rel', 'stylesheet');
-$script->setAttribute('href', ROOT_FOLDER . '/_inlay/css/edit.css');
+$script->setAttribute('src', '/' . join_path(array(ROOT_FOLDER, '/_inlay/javascripts/editor.js')));
+$style = $head->item(0)->appendChild($template->doc->createElement('link'));
+$style->setAttribute('type', 'text/css');
+$style->setAttribute('rel', 'stylesheet');
+$style->setAttribute('href', '/' . join_path(array(ROOT_FOLDER, '/_inlay/css/edit.css')));
 $template->xml->body[0]->addAttribute('data-inlay-key', $template->template_key);
 foreach($template->fields as $k => $field){
   if($field->attributes() && $field->attributes()->{'data-inlay-format'} && $field->attributes()->{'data-inlay-format'}->{0}){
