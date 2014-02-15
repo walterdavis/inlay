@@ -14,7 +14,7 @@ foreach($template->fields as $k => $field){
 }
 $xpath = new DomXPath($template->doc);
 $head = $xpath->query('//head');
-$top = $xpath->query('//head/meta');
+$top = $xpath->query('//head/*[1]');
 $base = $template->doc->createElement('base');
 $base->setAttribute('href', $template->base);
 $head->item(0)->insertBefore($base, $top->item(0));
