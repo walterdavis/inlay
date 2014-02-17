@@ -10,7 +10,8 @@ if(present('email', $_POST)){
     if(present('next', $_SESSION)){
       $next = $_SESSION['next'];
       unset($_SESSION['next']);
-      redirect_to($next);
+      header('Location: ' . $next);
+      exit;
     }else{
       redirect_to('/index.html');
     }
