@@ -63,7 +63,7 @@ function get_connection(){
   return $db;
 }
 function redirect_to($path){
-  header('Location: http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . (($_SERVER['SERVER_PORT'] == '80') ? '' : ':' . $_SERVER['SERVER_PORT']) . '/' . join_path(array(ROOT_FOLDER, $path)));
+  header('Location: http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . (($_SERVER['SERVER_PORT'] == '80') ? '' : ':' . $_SERVER['SERVER_PORT']) . preg_replace('/\/+/', '/', '/' . join_path(array(ROOT_FOLDER, $path))));
   exit;
 }
 ?>
