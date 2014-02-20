@@ -6,7 +6,15 @@ document.observe('dom:loaded', function(){
   var edit_bar = new Element('div', {className: 'title-edit-bar'});
   edit_bar.update('<a id="inlay-icon" href="' + window.location.href.split('?').first() + '" title="Back to page">i</a>');
   if(undefined != $$('title').first().readAttribute('data-inlay-source')){
-    edit_bar.insert('<div id="title-button"><span class="inlay-button">title</span><div id="page-title" style="display:none" data-inlay-source="title" data-inlay-format="string">' + document.title + '</div></div>');
+    edit_bar.insert('<div id="title-button"><span class="inlay-button">title</span><div id="page-title" class="meta-tag" style="display:none" data-inlay-source="title" data-inlay-format="string">' + document.title + '</div></div>');
+  }
+  if(undefined != $$('meta[name="keywords"][data-inlay-source]').first()){
+    var meta_keywords = $$('meta[name="keywords"]').first();
+    edit_bar.insert('<div id="key-button"><span class="inlay-button">keywords</span><div id="page-keywords" class="meta-tag" style="display:none" data-inlay-source="inlay_keywords" data-inlay-format="string" data-inlay-key="' + meta_keywords.readAttribute('data-inlay-key') + '">' + meta_keywords.content + '</div></div>');
+  }
+  if(undefined != $$('meta[name="description"][data-inlay-source]').first()){
+    var meta_description = $$('meta[name="description"]').first();
+    edit_bar.insert('<div id="desc-button"><span class="inlay-button">description</span><div id="page-description" class="meta-tag" style="display:none" data-inlay-source="inlay_description" data-inlay-format="string" data-inlay-key="' + meta_description.readAttribute('data-inlay-key') + '">' + meta_description.content + '</div></div>');
   }
   $(document.body).insert(edit_bar);
   $('page-title').setStyle('font:' + outer_block.getStyle('font')); 
@@ -15,7 +23,17 @@ document.observe('dom:loaded', function(){
     $('page-title').toggle();
     if($('page-title').visible()) $('page-title').click();
   });
-  $$('.editable, #page-title').invoke('observe', 'click', function(evt){
+  $$('#key-button').invoke('observe', 'click', function(evt){
+    evt.stop();
+    $('page-keywords').toggle();
+    if($('page-keywords').visible()) $('page-keywords').click();
+  });
+  $$('#desc-button').invoke('observe', 'click', function(evt){
+    evt.stop();
+    $('page-description').toggle();
+    if($('page-description').visible()) $('page-description').click();
+  });
+  $$('.editable, #page-title, #page-keywords, #page-description').invoke('observe', 'click', function(evt){
     evt.stop();
     var elm = this, editor, txt;
     if(elm.down('.editor')) return;
@@ -35,27 +53,41 @@ document.observe('dom:loaded', function(){
       },
       onSuccess: function(xhr){
         editor.setValue(xhr.responseText);
+        editor.store('initial-value', editor.value);
         editor.focus();
+      },
+      onComplete: function(xhr){
+        if(xhr.status == 404)
+          window.location.href = window.location.href.toString();;
       }
     });
     editor.observe('blur', function(){
       var data_key = (editor.name == 'title') ? $$('head title').first().readAttribute('data-inlay-key') : elm.readAttribute('data-inlay-key');
-      new Ajax.Updater(elm, $root_folder + '_inlay/set_raw.php', {
-        parameters: {
-          key: data_key,
-          uri: page_path(),
-          source: elm.readAttribute('data-inlay-source'),
-          val: editor.getValue(),
-          format: elm.readAttribute('data-inlay-format')
-        },
-        onSuccess: function(xhr){
-          if(editor.name == 'title'){
-            document.title = xhr.responseText;
-            $('page-title').hide();
+      if($F(editor) != editor.retrieve('initial-value')){
+        new Ajax.Updater(elm, $root_folder + '_inlay/set_raw.php', {
+          parameters: {
+            key: data_key,
+            uri: page_path(),
+            source: elm.readAttribute('data-inlay-source'),
+            val: editor.getValue(),
+            format: elm.readAttribute('data-inlay-format')
+          },
+          onSuccess: function(xhr){
+            if(editor.name == 'title'){
+              document.title = xhr.responseText;
+            }
+            if(editor.up('.meta-tag')) editor.up('.meta-tag').hide();
+            if(!!editor) editor.remove(); 
+          },
+          onComplete: function(xhr){
+            if(xhr.status == 404)
+              window.location.href = window.location.href.toString();
           }
-          editor.remove(); 
-        }
-      });
+        });
+      }else{
+        if(editor.up('.meta-tag')) editor.up('.meta-tag').hide();
+        if(!!editor) editor.remove(); 
+      }
     });
     elm.insert(editor);
   });

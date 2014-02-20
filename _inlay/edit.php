@@ -1,8 +1,6 @@
 <?php
 if(present('current_user', $_SESSION)){
   $current_user = $_SESSION['current_user'];
-}else{
-  $current_user = false;
 }
 if(!$current_user){
   $_SESSION['next'] = $_SERVER['REQUEST_URI'];

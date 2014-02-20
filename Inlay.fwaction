@@ -1,10 +1,10 @@
 <action-encoding>UTF-8</action-encoding>
 <action name="Inlay"  height="12" width="50">
-<action-version version="0.2">
+<action-version version="0.3">
 Inlay Action
 (c)2013 Walter Davis Studio
 </action-version>
-<action-text name="source" title="Data Source" />
+<action-text name="source" title="Data source" />
 <action-popup name="format" title="Formatting">
 <value name="text" title="Plain Text" />
 <value name="markdown" title="Markdown" />
@@ -30,21 +30,26 @@ function fwBeforeEndBody(){
 </action-javascript>
 </action>
 <item-action name="Inlay">
-<action-version version="0.2">
+<action-version version="0.3">
 Inlay Action
 (c)2013 Walter Davis Studio
 </action-version>
-<action-text name="source" title="Data Source" />
+<action-text name="source" title="Data source" />
 <action-popup name="format" title="Formatting">
 <value name="text" title="Plain Text" />
 <value name="markdown" title="Markdown" />
 </action-popup>
 <action-javascript>
+function fwInterface(){
+  if(fwParameters['source'].fwValue == ''){
+    fwParameters['source'].fwValue = fwItem.toString();
+  }
+}
 function fwBeforeEndBody(){
   var element = fwDocument.fwTags.fwFind(fwItem);
   if(!!element){
     var source = fwParameters.source.fwValue.toString();
-    if(source.length < 1) fwAbort('Enter a variable name');
+    if(source.length < 1) fwAbort('Enter a variable name for “' + fwItem.toString() + '”');
     if(!source.match(/^[a-z][a-z0-9_]+$/)) 
       fwAbort('“' + source + '” is not a valid variable name. Publishing cannot continue.')
     element['data-inlay-format'] = fwQuote(fwParameters.format.fwValue);
@@ -55,21 +60,51 @@ function fwBeforeEndBody(){
 </item-action>
 
 <page-action name="Inlay">
-<action-version version="0.2">
+<action-version version="0.3">
 Inlay Action
 (c)2014 Walter Davis Studio
 </action-version>
-<action-text name="title_source" title="Title Data Source" />
+<action-label name="Edit with Inlay:"/>
+<action-checkbox name="edit_title" title="Title" />
+<action-checkbox name="edit_meta_description" title="Description" default="no" />
+<action-checkbox name="edit_meta_keywords" title="Keywords" default="no" />
 <action-javascript>
 function fwBeforeEndHead(){
   var title = fwDocument.fwTags.fwFind('title');
-  if(!!title){
-    var source = fwParameters.title_source.fwValue.toString();
-    if(source.length < 1) fwAbort('Enter a variable name');
-    if(!source.match(/^[a-z][a-z0-9_]+$/)) 
-      fwAbort('“' + source + '” is not a valid variable name. Publishing cannot continue.')
-    title['data-inlay-source'] = fwQuote(source);
+  if(fwParameters['edit_title'].fwBoolValue){
     title['data-inlay-format'] = fwQuote('string');
+    title['data-inlay-source'] = fwQuote('inlay_title');
+  }
+  var head = fwDocument.fwTags.fwFind('head');
+  var metas = fwDocument.fwTags.fwFindAll('meta');
+  var keywords, description;
+  for (var i=0; i < metas.length; i++) {
+    var meta = metas[i];
+    if(meta.name){
+      var name = meta.name.toString().replace(/"/g, '').toLowerCase(); //"
+      if( name == 'keywords' ) keywords = meta;
+      if( name == 'description' ) description = meta;
+    }
+  };
+  if(fwParameters['edit_meta_description'].fwBoolValue){
+    if(!description){
+      description = head.fwAdd('meta');
+      head.fwAddRawOpt();
+      description['name'] = fwQuote('description');
+      description['content'] = fwQuote('description');
+    }
+    description['data-inlay-format'] = fwQuote('string');
+    description['data-inlay-source'] = fwQuote('inlay_description');
+  }
+  if(fwParameters['edit_meta_keywords'].fwBoolValue){
+    if(!keywords){
+      keywords = head.fwAdd('meta');
+      head.fwAddRawOpt();
+      keywords['name'] = fwQuote('keywords');
+      keywords['content'] = fwQuote('keywords');
+    }
+    keywords['data-inlay-format'] = fwQuote('string');
+    keywords['data-inlay-source'] = fwQuote('inlay_keywords');
   }
 }
 </action-javascript>

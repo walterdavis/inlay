@@ -10,7 +10,7 @@
 	text-align: center;
 }
 
-#title-button {
+#title-button, #key-button, #desc-button {
 	position: relative;
 	width: 100%;
 }
@@ -18,11 +18,11 @@
 .inlay-button {
 	cursor: pointer;
 	color: #363636;
-	font: 9px/1 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Lucida, sans-serif;
+	font: 8px/1 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Lucida, sans-serif;
 	padding: 4px 0;
 	background-color: #c1c1c1;
 	border-radius: 13px;
-	margin: auto 5px;
+	margin: auto 5px 3px;
 	display: block;
 	text-align: center;
 	text-shadow: white 0 1px 2px;
@@ -30,12 +30,16 @@
 	letter-spacing: .05em;
 }
 
-#page-title {
+#page-title, #page-keywords, #page-description {
 	position: absolute;
-	left: 50px;
-	top: 0;
+	left: 80px;
+	top: -10px;
 	width: 300px;
-	height: 20px;
+	height: 35px;
+	background-color: #eee;
+	border-top-right-radius: 9px;
+	border-bottom-right-radius: 9px;
+	padding: 5px;
 }
 
 .editable {
@@ -55,11 +59,15 @@
 	top: 0;
 	left: 0;
 	height: 100%;
-	width: 50px;
+	width: 80px;
 	border: none;
 	background-color: #eee;
 	box-sizing: border-box;
 	z-index: 10000;
+}
+
+.title-edit-bar, .meta-tag {
+	box-shadow: 2px 3px 6px rgba(0,0,0,0.2);
 }
 
 .title-edit-bar * {
@@ -80,6 +88,17 @@
 	box-sizing: border-box;
 	font: inherit;
 	border: none;
+}
+
+#page-title .editor, #page-description .editor, #page-keywords .editor {
+	top: 8px;
+	left: 5px;
+	height: auto;
+	width: 287px;
+	font: 12px/1 "Lucida Grande", Lucida, Verdana, sans-serif;
+	outline: none;
+	padding: 3px;
+	margin: 0 5px 5px 0;
 }
 
 .markdown {
