@@ -8,12 +8,13 @@ document.observe('dom:loaded', function(){
   if(undefined != $$('title').first().readAttribute('data-inlay-source')){
     edit_bar.insert('<div id="title-button"><span class="inlay-button">title</span><div id="page-title" class="meta-tag" style="display:none" data-inlay-source="title" data-inlay-format="string">' + document.title + '</div></div>');
   }
-  if(undefined != $$('meta[name="keywords"][data-inlay-source]').first()){
-    var meta_keywords = $$('meta[name="keywords"]').first();
+  var metas = $$('meta[data-inlay-source]');
+  if(undefined != metas.select(function(m){ return m.readAttribute('name').toLowerCase().match('keywords');}).first()){
+    var meta_keywords = metas.select(function(m){ return m.readAttribute('name').toLowerCase().match('keywords');}).first();
     edit_bar.insert('<div id="key-button"><span class="inlay-button">keywords</span><div id="page-keywords" class="meta-tag" style="display:none" data-inlay-source="inlay_keywords" data-inlay-format="string" data-inlay-key="' + meta_keywords.readAttribute('data-inlay-key') + '">' + meta_keywords.content + '</div></div>');
   }
-  if(undefined != $$('meta[name="description"][data-inlay-source]').first()){
-    var meta_description = $$('meta[name="description"]').first();
+  if(undefined != metas.select(function(m){ return m.readAttribute('name').toLowerCase().match('description');}).first()){
+    var meta_description = metas.select(function(m){ return m.readAttribute('name').toLowerCase().match('description');}).first();
     edit_bar.insert('<div id="desc-button"><span class="inlay-button">description</span><div id="page-description" class="meta-tag" style="display:none" data-inlay-source="inlay_description" data-inlay-format="string" data-inlay-key="' + meta_description.readAttribute('data-inlay-key') + '">' + meta_description.content + '</div></div>');
   }
   $(document.body).insert(edit_bar);
