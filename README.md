@@ -59,7 +59,7 @@ In your browser, visit the first page where you have created dynamic content are
 
 In the editing mode, each area that can be edited will be surrounded by a blue dashed line. Click once on that area to edit in place. Click anywhere else on the page to return to the formatted content display. There is no need to press a "save" button or anything else, each time you click elsewhere, the database will save your changes.
 
-The page title is edited in the gray "eyebrow" that appears at the top of the page. The large arrow at the top left returns you to the static page view (the same thing your visitors would see).
+The page title and meta tags may be edited by clicking their respective buttons in the sidebar. The large letter I at the top left returns you to the static page view (the same thing your visitors would see).
 
 ###Creating Virtual Pages
 
