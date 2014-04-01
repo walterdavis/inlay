@@ -28,6 +28,12 @@ $head->item(0)->insertBefore($base, $top->item(0));
 $script = $head->item(0)->appendChild($template->doc->createElement('script'));
 $script->setAttribute('type', 'text/javascript');
 $script->setAttribute('src', 'http://ajax.googleapis.com/ajax/libs/prototype/1.7/prototype.js');
+$script = $head->item(0)->appendChild($template->doc->createElement('script'));
+$script->setAttribute('type', 'text/javascript');
+$script->setAttribute('src', '/' . join_path(array(ROOT_FOLDER, '/_inlay/javascripts/control.textarea.js')));
+$script = $head->item(0)->appendChild($template->doc->createElement('script'));
+$script->setAttribute('type', 'text/javascript');
+$script->setAttribute('src', '/' . join_path(array(ROOT_FOLDER, '/_inlay/javascripts/control.textarea.markdown.js')));
 $script = $head->item(0)->appendChild($template->doc->createElement('script', "\n    var \$root_folder = '" . ROOT_FOLDER . "';\n  "));
 $script->setAttribute('type', 'text/javascript');
 $script = $head->item(0)->appendChild($template->doc->createElement('script'));
@@ -37,6 +43,10 @@ $style = $head->item(0)->appendChild($template->doc->createElement('link'));
 $style->setAttribute('type', 'text/css');
 $style->setAttribute('rel', 'stylesheet');
 $style->setAttribute('href', '/' . join_path(array(ROOT_FOLDER, '/_inlay/css/edit.css')));
+$style = $head->item(0)->appendChild($template->doc->createElement('link'));
+$style->setAttribute('type', 'text/css');
+$style->setAttribute('rel', 'stylesheet');
+$style->setAttribute('href', '/' . join_path(array(ROOT_FOLDER, '/_inlay/css/markdown.css')));
 $template->xml->body[0]->addAttribute('data-inlay-key', $template->template_key);
 foreach($template->fields as $k => $field){
   if($field->attributes() && $field->attributes()->{'data-inlay-format'} && $field->attributes()->{'data-inlay-format'}->{0}){

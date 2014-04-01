@@ -41,7 +41,9 @@ document.observe('dom:loaded', function(){
     txt = elm.innerHTML.toString().trim();
     if(elm.readAttribute('data-inlay-format') == 'markdown' || elm.innerHTML.stripTags().trim().match(/[\n\r]/)){
       editor = new Element('textarea', {'class':'editor'});
-      if(elm.readAttribute('data-inlay-format') == 'markdown') editor.addClassName('markdown');
+      if(elm.readAttribute('data-inlay-format') == 'markdown'){
+        editor.addClassName('markdown');
+      }
     }else{
       editor = new Element('input', {type: 'text', 'class':'editor'});
     }
@@ -62,7 +64,9 @@ document.observe('dom:loaded', function(){
           window.location.href = window.location.href.toString();;
       }
     });
-    editor.observe('blur', function(){
+    
+    document.observe('click', function(evt){
+      if(evt.findElement('.wrap, .editor')) return;
       var data_key = (editor.name == 'title') ? $$('head title').first().readAttribute('data-inlay-key') : elm.readAttribute('data-inlay-key');
       if($F(editor) != editor.retrieve('initial-value')){
         new Ajax.Updater(elm, $root_folder + '_inlay/set_raw.php', {
@@ -87,9 +91,17 @@ document.observe('dom:loaded', function(){
         });
       }else{
         if(editor.up('.meta-tag')) editor.up('.meta-tag').hide();
+        if(!!editor && !!editor.up('.wrap')) editor.up('.wrap').remove(); 
         if(!!editor) editor.remove(); 
       }
     });
     elm.insert(editor);
+    if(editor.hasClassName('markdown')){
+      var wrapper = new Element('div');
+      wrapper.className = "wrap";
+      editor.insert({after: wrapper});
+      wrapper.insert(editor.remove());
+      new Control.TextArea.ToolBar.Markdown(editor);
+    }
   });
 });
