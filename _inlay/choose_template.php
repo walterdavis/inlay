@@ -24,7 +24,7 @@ $directory = new RecursiveDirectoryIterator(ROOT);
 $iterator = new RecursiveIteratorIterator($directory, RecursiveIteratorIterator::SELF_FIRST);
 $templates = array();
 foreach ($iterator as $filename => $f) {
-  if(preg_match('/\.html$/i', $filename)){
+  if(preg_match('/\.html$/i', $filename) && ! preg_match('/^_/', $filename)){
     $path = str_replace(ROOT . '/', '', $filename);
     $t = new Template($path);
     if(count($t->variables) > 0){
