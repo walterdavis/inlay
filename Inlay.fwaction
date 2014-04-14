@@ -1,12 +1,12 @@
 <action-encoding>UTF-8</action-encoding>
 <action name="Inlay"  height="12" width="50">
-<action-version version="0.3">
+<action-version version="0.4">
 Inlay Action
 (c)2013 Walter Davis Studio
 </action-version>
 <action-text name="source" title="Data source" />
 <action-popup name="format" title="Formatting">
-<value name="text" title="Plain Text" />
+<value name="string" title="Plain Text" />
 <value name="markdown" title="Markdown" />
 </action-popup>
 <action-javascript>
@@ -30,13 +30,13 @@ function fwBeforeEndBody(){
 </action-javascript>
 </action>
 <item-action name="Inlay">
-<action-version version="0.3">
+<action-version version="0.4">
 Inlay Action
 (c)2013 Walter Davis Studio
 </action-version>
 <action-text name="source" title="Data source" />
 <action-popup name="format" title="Formatting">
-<value name="text" title="Plain Text" />
+<value name="string" title="Plain Text" />
 <value name="markdown" title="Markdown" />
 </action-popup>
 <action-javascript>
@@ -60,7 +60,7 @@ function fwBeforeEndBody(){
 </item-action>
 
 <page-action name="Inlay">
-<action-version version="0.3">
+<action-version version="0.4">
 Inlay Action
 (c)2014 Walter Davis Studio
 </action-version>
