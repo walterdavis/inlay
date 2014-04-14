@@ -5,7 +5,7 @@ document.observe('dom:loaded', function(){
   var outer_block = $$('body > *').first();
   var edit_bar = new Element('div', {className: 'title-edit-bar'});
   edit_bar.update('<a id="inlay-icon" href="' + window.location.href.split('?').first() + '" title="Back to page">i</a>');
-  if(undefined != $$('title').first().readAttribute('data-inlay-source')){
+  if(undefined != $$('head title').first().readAttribute('data-inlay-source')){
     edit_bar.insert('<div id="title-button"><span class="inlay-button">title</span><div id="page-title" class="meta-tag" style="display:none" data-inlay-source="title" data-inlay-format="string">' + document.title + '</div></div>');
   }
   var metas = $$('meta[data-inlay-source]');
@@ -102,6 +102,18 @@ document.observe('dom:loaded', function(){
       editor.insert({after: wrapper});
       wrapper.insert(editor.remove());
       new Control.TextArea.ToolBar.Markdown(editor);
+    }
+  });
+  $$('*[data-inlay-collection]').each(function(elm){
+    var button = new Element('button', {className: 'add-to-collection'}).update('+');
+    elm.insert({after: button})
+  })
+  document.on('click', '.add-to-collection', function(evt, elm){
+    var collection = elm.previous('*[data-inlay-collection]');
+    if(collection){
+      var template = collection.down('.inlay-template').readAttribute('data-template');
+      // send Ajax request to server to create the new element, send back a modified template to insert
+      collection.insert({bottom: template});
     }
   });
 });
