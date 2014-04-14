@@ -66,4 +66,9 @@ function redirect_to($path){
   header('Location: http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . (($_SERVER['SERVER_PORT'] == '80') ? '' : ':' . $_SERVER['SERVER_PORT']) . preg_replace('/\/+/', '/', '/' . join_path(array(ROOT_FOLDER, $path))));
   exit;
 }
+function outerHTML($el) {
+  $doc = new DOMDocument();
+  $doc->appendChild($doc->importNode($el, TRUE));
+  return trim($doc->saveHTML());
+}
 ?>

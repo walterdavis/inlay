@@ -7,9 +7,41 @@ if(!$current_user){
   redirect_to('/_inlay/login.php');
 }
 require('models/element.php');
+require('models/collection.php');
+require('models/member.php');
 header('Content-type: text/html; charset=utf-8');
 $substitutes = array();
 $element = new Element();
+$collection = new Collection();
+$member = new Member();
+$xpath = new DomXPath($template->doc);
+foreach($template->collections as $k => $c){
+  $temp = dom_import_simplexml($c->children()->{0});
+  $co = $collection->find_or_create_by_server_and_name($template->server, $c->attributes()->{'data-inlay-collection'});
+  foreach($co->members as $key => $member){
+    $clone = $temp->cloneNode(true);
+    foreach($clone->childNodes as $child){
+      if($child->hasAttribute('data-inlay-source')){
+        $child->setAttribute('data-inlay-source', $c->attributes()->{'data-inlay-collection'} . '_' . $child->getAttribute('data-inlay-source') . '_' . $member->id);
+      }
+    }
+    dom_import_simplexml($c)->appendChild($clone);
+  }
+  //dom_import_simplexml($c)->removeChild($temp);
+  $temp->setAttribute('data-template', outerHTML($temp));
+  $style = $classname = array();
+  if($temp->hasAttribute('style')){
+    $style[] = $temp->getAttribute('style');
+  }
+  $style[] = 'display:none';
+  $temp->setAttribute('style', implode(' ', $style));
+  if($temp->hasAttribute('class')){
+    $classname[] = $temp->getAttribute('class');
+  }
+  $classname[] = 'inlay-template';
+  $temp->setAttribute('class', implode(' ', $classname));
+}
+if(count($template->collections) > 0) $template->extract_fields();
 foreach($template->fields as $k => $field){
   $key = md5((string) $field->attributes()->{'data-inlay-key'}->{0} . $_SERVER['REDIRECT_URL']);
   $e = $element->find_by_signature($key);
@@ -19,7 +51,6 @@ foreach($template->fields as $k => $field){
     $substitutes[] = Inflector::humanize($field['data-inlay-source']) . ' is not defined.';
   }
 }
-$xpath = new DomXPath($template->doc);
 $head = $xpath->query('//head');
 $top = $xpath->query('//head/*[1]');
 $base = $template->doc->createElement('base');

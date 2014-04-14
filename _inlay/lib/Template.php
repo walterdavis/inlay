@@ -2,29 +2,41 @@
 class Template{
   private $template_identifier = null;
   private $template = null;
-  private $server = null;
+  public $server = null;
   public $raw_template = null;
   public $xml = null;
   public $template_key = null;
   public $fields = array();
+  public $collections = array();
   public $variables = array();
   public $base = '';
   public $doc = null;
-  function __construct($template_identifier){
+  function __construct($template_identifier, $id = null){
     $this->template_identifier = $template_identifier;
     $this->template = $this->relative_path_to_template();
     $this->base = '/' . join_path(array(ROOT_FOLDER, dirname($this->template))) . '/';
     $this->base = preg_replace('/\/+/', '/', $this->base);
     $this->server = $_SERVER['HTTP_HOST'] . ROOT_FOLDER;
-    $this->template_key = md5($this->server . $this->template . SALT);
+    $this->template_key = md5($this->server . $this->template . $id . SALT);
     $this->raw_template = str_replace('%', '%%', file_get_contents($this->absolute_path_to_template()));
     $this->doc = HTML5_Parser::parse($this->raw_template);
     $this->xml = simplexml_import_dom($this->doc);
+    $this->collections = $this->xml->xpath('//*[@data-inlay-collection]');
+    $this->extract_fields();
+    return $this;
+  }
+  
+  function extract_fields(){
+    $this->fields = $this->variables = array();
     $this->fields = $this->xml->xpath('//*[@data-inlay-source]');
     foreach($this->fields as $k => $variable){
       $key = (string) $variable->attributes()->{'data-inlay-source'}->{0};
       $crypt = md5($this->template_key . $key);
-      $this->fields[$k]->addAttribute('data-inlay-key', $crypt);
+      if($this->fields[$k]->attributes()->{'data-inlay-key'}){
+        $this->fields[$k]->attributes()->{'data-inlay-key'} = $crypt;
+      }else{
+        $this->fields[$k]->addAttribute('data-inlay-key', $crypt);
+      }
       $format = 'string';
       if($variable->attributes() && $variable->attributes()->{'data-inlay-format'} && $variable->attributes()->{'data-inlay-format'}->{0}){
         $format = (string) $variable->attributes()->{'data-inlay-format'}->{0};
@@ -32,7 +44,6 @@ class Template{
       $this->variables[$crypt]['source'] = $key;
       $this->variables[$crypt]['format'] = $format;
     }
-    return $this;
   }
   /**
    * location of the template relative to the site root
@@ -64,7 +75,12 @@ class Template{
    * @return string
    * @author Walter Lee Davis
    */
-  function populate($substitutes = array(), $strip = true){
+  function populate($substitutes = array(), $strip = true, $partial = false){
+    foreach($this->collections as $k => $collection){
+      if($collection->attributes() && $strip){
+        unset($collection->attributes()->{'data-inlay-collection'});
+      }
+    }
     foreach($this->fields as $k => $variable){
       if($variable->attributes() && $strip){
         unset($variable->attributes()->{'data-inlay-format'});
@@ -78,7 +94,9 @@ class Template{
       }
     }
     if($strip) unset($this->xml->body->attributes()->{'data-inlay-key'});
-    return vsprintf($this->xml->asXML(), $substitutes);
+    $out = vsprintf($this->xml->asXML(), $substitutes);
+    if($partial) $out = str_replace(array('<?xml version="1.0" encoding="UTF-8"?>', '<html><head/><body>', '</body></html>'), '', $out);
+    return $out;
   }
 }
 ?>
