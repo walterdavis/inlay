@@ -7,25 +7,6 @@ $substitutes = array();
 $element = new Element();
 $collection = new Collection();
 $member = new Member();
-// foreach($template->collections as $k => $field){
-//   $children = $template->xml->xpath('//*[@data-inlay-collection]/*');
-//   foreach($children as $child){
-//     unset($child[0]);
-//   }
-//   $c = $collection->find_by_name($field->attributes()->{'data-inlay-collection'}->{0});
-//   foreach($c->members as $m => $member){
-//     $s = array();
-//     $t = new Template($member->partial, $m);
-//     foreach($t->variables as $v => $variable){
-//       $e = $element->find_by_signature($v);
-//       $s[] = call_user_func($e->format, $e->content);
-//     }
-//     $part = simplexml_load_string($t->populate($s, true, true));
-//     $field->addChild($part->getName(), $part->{0});
-//   }
-// }
-// loop through collections, update the template with found children, populated
-// with the virtual placeholders. once this is done, the next statement will work:
 $xpath = new DomXPath($template->doc);
 foreach($template->collections as $k => $c){
   $temp = dom_import_simplexml($c->children()->{0});
