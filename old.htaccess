@@ -1,0 +1,11 @@
+Options -Indexes
+Options -MultiViews
+RewriteEngine  on
+# virtual pages first
+RewriteCond %{REQUEST_FILENAME}   !-f
+RewriteCond %{REQUEST_FILENAME}   !-d
+RewriteRule    ^(.*)     _inlay.php?virtual=true&path=$1 [NS,QSA,L]
+# actual pages next
+# ALL HTML pages are passed through Inlay
+RewriteCond %{REQUEST_FILENAME}   \.html$
+RewriteRule    ^(.*)     _inlay.php?path=$1 [NS,QSA,L]

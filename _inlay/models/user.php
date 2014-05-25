@@ -1,6 +1,7 @@
 <?php
 class User extends MiniActiveRecord{
   public $validations = 'presence:first_name; presence:last_name; presence:email; email:email; regexp:password:/^.{8,100}$/:Password must be at least 8 characters long; password_confirmation:password_confirmation';
+  public $has_many = 'sites';
   function set_encrypted_password($password) {
     $salt = '';
     for ($i = 0; $i < CRYPT_SALT_LENGTH; $i++) {
