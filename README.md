@@ -5,7 +5,7 @@ A Freeway-centric CMS that turns any static page into a template for dynamic con
 
 These notes are based on the alpha1 version of Inlay, which is not feature-complete. It should do what is listed below, as long as you follow these notes explicitly.
 
-##November 2014
+##June 2014
 This attempt at [Inlay](http://inlay.io) was abandoned because it did not work reliably for a wide enough range of HTML coding styles. This version is released for study purposes, and for the brave souls who want to try abandoned software. There is no support available. Use at your own risk. The Freeway Action included in this repo is not compatible with the commercial version of Inlay, and vice-versa.
 
 ###Requires:
