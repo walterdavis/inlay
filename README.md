@@ -1,9 +1,11 @@
-Inlay
+Inlay (PHP version)
 =====
 
 A Freeway-centric CMS that turns any static page into a template for dynamic content.
 
 These notes are based on the alpha1 version of Inlay, which is not feature-complete. It should do what is listed below, as long as you follow these notes explicitly.
+
+This attempt at [Inlay](http://inlay.io) was abandoned because it did not work reliably for a wide enough range of HTML coding styles. This version is released for study purposes, and for the brave souls who want to try abandoned software. There is no support available. Use at your own risk.
 
 ###Requires:
 
